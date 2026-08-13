@@ -1,0 +1,214 @@
+/* Fonts load via next/font in layout.js (Roboto Condensed for both
+   heading and body). The starter's Google-Fonts @import is dropped —
+   it would double-load. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-light font-default;
+	@apply antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #161616; /* Black — guide doesn't state a separate body color, using darkest neutral */
+}
+
+@layer base {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		orphans: 2;
+		widows: 2;
+		word-break: normal;
+		overflow-wrap: break-word;
+		text-wrap: pretty;
+	}
+
+	/* ── Headings — Roboto Condensed, weight 600 (per guide) ──────────────
+	   FLUID: the guide's fixed value is the clamp max, with a mobile min.
+	   Want the guide's exact fixed sizes instead? Drop the clamp, keep the max.
+	   Letter-spacing uses the guide's literal rem values. */
+
+	.hero-title {
+		/* Guide has no distinct hero size — mirrors H1. */
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(4.5rem, 8vw, 8.25rem);
+		font-weight: 600;
+		line-height: 1; /* 100% */
+		letter-spacing: -0.33rem; /* guide (mirrors H1) */
+		orphans: 2;
+		widows: 2;
+		word-break: normal;
+		overflow-wrap: break-word;
+		text-wrap: pretty;
+	}
+
+	h1 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(4.5rem, 8vw, 8.25rem); /* guide max 8.25rem */
+		font-weight: 600;
+		line-height: 1; /* 100% */
+		letter-spacing: -0.33rem; /* guide */
+	}
+
+	h2 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(2.25rem, 5vw, 3.75rem); /* guide max 3.75rem */
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.075rem; /* guide */
+	}
+
+	h3 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 2.75rem); /* guide max 2.75rem */
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.06rem; /* not given in guide — interpolated between H2 (-0.075rem) and H4 (-0.045rem) */
+	}
+
+	h4 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(1.75rem, 3vw, 2.25rem); /* guide max 2.25rem */
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.045rem; /* guide */
+	}
+
+	h5 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(1.3rem, 2.5vw, 1.75rem); /* guide max 1.75rem */
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.035rem; /* guide */
+	}
+
+	h6 {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(1.2rem, 2vw, 1.5rem); /* guide max 1.5rem */
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.03rem; /* guide */
+	}
+
+	/* ── Body & UI — Roboto Condensed. Fluid sizes (guide value = clamp max,
+	   narrow min so body text barely shrinks). Letter-spacing uses the
+	   guide's literal rem values where given. ───────────────────────────── */
+
+	/* Guide "Quote / Call out text / Subheadings" — the guide combines all
+	   three into a single style. Display-scale, so wider clamp range. */
+	.text-callout {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(1.5rem, 3vw, 2rem); /* guide 2rem */
+		font-weight: 400;
+		line-height: 1.05; /* 105% */
+		letter-spacing: normal; /* not given in guide */
+	}
+
+	/* Guide "Paragraph Text Large". */
+	.text-paragraph-lg {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(1.0625rem, 1.8vw, 1.25rem); /* guide 1.25rem */
+		font-weight: 400;
+		line-height: 1.4; /* 140% */
+		letter-spacing: normal; /* not given in guide */
+	}
+
+	/* Guide "Paragraph text small" — this is the base/default body copy
+	   size (1rem), so it takes the starter's default paragraph class name
+	   even though the guide itself labels it "Small". */
+	.text-paragraph {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(
+			0.9375rem,
+			1vw,
+			1rem
+		); /* guide 1rem, labeled "Paragraph small" in guide */
+		font-weight: 400;
+		line-height: 1.4; /* 140% */
+		letter-spacing: normal; /* not given in guide */
+	}
+
+	/* Guide "Caption Text". */
+	.text-caption {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(0.8125rem, 0.9vw, 0.875rem); /* guide 0.875rem */
+		font-weight: 400;
+		line-height: 1.4; /* 140% */
+		letter-spacing: 0.00875rem; /* guide */
+	}
+
+	/* Guide "Button & link text". Color set by button variant / link context. */
+	.text-button {
+		font-family: var(--font-body);
+		font-size: clamp(0.9375rem, 1vw, 1rem); /* guide 1rem */
+		font-weight: 500;
+		line-height: 1.05; /* 105% */
+		letter-spacing: 0.01rem; /* guide */
+	}
+
+	/* ── Starter aliases — the guide has no distinct style for these, so
+	   they point at the nearest guide style. Delete if unused. ──────────── */
+
+	/* Guide has no Overline style — nearest is Caption Text. No text-transform
+	   specified either way; add `uppercase` here if that's the house intent. */
+	.text-overline {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(0.8125rem, 0.9vw, 0.875rem);
+		font-weight: 400;
+		line-height: 1.4;
+		letter-spacing: 0.00875rem;
+	}
+
+	/* Guide folds Subheading into the same style as Quote/Callout — see
+	   .text-callout above. Kept as an alias so existing components don't break. */
+	.text-subheading {
+		color: #161616;
+		font-family: var(--font-body);
+		font-size: clamp(1.5rem, 3vw, 2rem);
+		font-weight: 400;
+		line-height: 1.05;
+		letter-spacing: normal;
+	}
+}
+
+html {
+	@apply scroll-smooth;
+}
+
+.section-x-padding {
+	@apply px-1.25 md:px-2.5 lg:px-5 3xl:max-w-[130rem] 3xl:mx-auto;
+}
+
+.section-y-padding {
+	@apply py-5 lg:py-10;
+}
+
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
+.no-scroll {
+	overflow: hidden !important;
+	height: 100% !important;
+}
