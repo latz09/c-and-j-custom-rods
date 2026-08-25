@@ -12,7 +12,7 @@ const AboutHero = ({ data }) => {
 					<p className='text-callout text-light'>{subheadline}</p>
 				</div>
 			</div>
-			<div className='relative w-full h-[26rem] sm:h-[27rem] md:h-[26rem] lg:h-[30rem] 2xl:h-[37rem] rounded '>
+			<div className='relative w-full h-[26rem] sm:h-[27rem] md:h-[26rem] lg:h-[29rem] 2xl:h-[39rem] 3xl-[49rem] rounded '>
 				<SanityImage
 					image={image}
 					alt={headline || ''}

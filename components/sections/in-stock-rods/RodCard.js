@@ -27,7 +27,7 @@ export default function RodCard({ product, seriesList, index = 0 }) {
 
 	return (
 		<div
-			className='bg-gradient-to-b from-light via-accent/0 to-accent/60 p-2 border border-[#D2D2D2] rounded animate-[fade-in-up_0.4s_ease-out_backwards]'
+			className='bg-gradient-to-b from-light via-accent/0 to-accent/60 p-1.5 border border-[#D2D2D2] rounded animate-[fade-in-up_0.4s_ease-out_backwards]'
 			style={{ animationDelay: `${index * 60}ms` }}
 		>
 			<Link href={`/shop/rods/${product.handle}`} className='group'>

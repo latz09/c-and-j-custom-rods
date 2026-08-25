@@ -29,19 +29,21 @@ const CollectionItem = ({ item }) => {
 		>
 			<div className='bg-gradient-to-b from-[#c4c4c4] to-[#1f1f1f] border border-light rounded overflow-hidden flex flex-col items-center p-1 space-y-1.5'>
 				{imageUrl && (
-					<div className='relative w-full h-[15rem] md:h-[15rem] rounded overflow-hidden'>
+					<div className='relative w-full h-[15rem] md:h-[15rem] rounded'>
 						<Image
 							src={imageUrl}
 							alt={label || ''}
 							fill
-							className='object-contain rounded transition-transform duration-500 ease-out group-hover:scale-[1.15]'
+							className='object-contain rounded transition-transform duration-500 ease-out group-hover:scale-[1.15] group-hover:z-10 relative'
 						/>
 					</div>
 				)}
 				<div className='flex justify-between items-center w-full text-light'>
-					<h4 className='transition-all duration-500 text-light line-height-0'>{label}</h4>
+					<h4 className='transition-all duration-500 text-light line-height-0'>
+						{label}
+					</h4>
 
-					<Arrow className="scale-150 lg:scale-125"/>
+					<Arrow className='scale-150 lg:scale-125' />
 				</div>
 			</div>
 		</Link>
