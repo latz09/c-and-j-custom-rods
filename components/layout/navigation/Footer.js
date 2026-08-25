@@ -24,26 +24,8 @@ const CopyRight = ({ businessName = 'Your Business Name' }) => {
 			</Link>
 
 			<p>{`© ${currentYear} by ${businessName}`}</p>
-			<PoweredBy />
+		
 		</div>
 	);
 };
 
-const PoweredBy = () => {
-	return (
-		<div>
-			<a
-				href='https://www.latzwebdesign.com'
-				target='_blank'
-				rel='noopener noreferrer'
-				className='grid place-items-center  text-dark '
-			>
-				<p>
-					{`Powered by `}
-					<span className='font-bold '>LatzWebDesign</span>
-				</p>
-				<p className='text-sm font-semibold'>© LatzWebDesign.com</p>
-			</a>
-		</div>
-	);
-};

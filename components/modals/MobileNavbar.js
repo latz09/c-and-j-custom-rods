@@ -2,13 +2,19 @@
 
 import { track } from '@vercel/analytics';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import MenuIcon from '../layout/navigation/MenuIcon';
 import Logo from '../lib/Logo';
 
-const MobileNavbar = ({ navLinks = [], variant, logoUrl }) => {
+const DARK_NAV_ROUTES = ['/about'];
+
+const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 	const [isNavOpen, setIsNavOpen] = useState(false);
+	const pathname = usePathname();
+	const isDark = DARK_NAV_ROUTES.includes(pathname);
 
 	const toggleNav = () => setIsNavOpen(!isNavOpen);
 
@@ -70,92 +76,110 @@ const MobileNavbar = ({ navLinks = [], variant, logoUrl }) => {
 	};
 
 	return (
-		<div className='lg:hidden relative z-20'>
-			<header className='flex items-center justify-between'>
-				<Logo height={75} width={75} variant={variant} url={logoUrl} />
-				<MenuIcon
-					isNavOpen={isNavOpen}
-					toggleNav={toggleNav}
-					variant={isNavOpen ? 'light' : variant}
-				/>
-			</header>
+		<div
+			className={`w-full lg:hidden flex items-center justify-between backdrop-blur-lg h-[10vh] ${
+				isDark ? 'bg-dark/90' : 'bg-light/[44%]'
+			}`}
+		>
+			<div className='relative z-20 w-full section-x-padding'>
+				<header className='flex items-center justify-between'>
+					<Logo
+						className='w-[12rem]'
+						variant={isDark ? 'verticalWhite' : 'vertical'}
+					/>
+					<MenuIcon
+						isNavOpen={isNavOpen}
+						toggleNav={toggleNav}
+						variant={isNavOpen ? 'dark' : isDark ? 'light' : 'dark'}
+					/>
+				</header>
+			</div>
 
-			<AnimatePresence>
-				{isNavOpen && (
-					<>
-						{/* Overlay */}
-						<motion.div
-							className='fixed inset-0 bg-dark/60 backdrop-blur-sm z-[9998]'
-							variants={overlayVariants}
-							initial='closed'
-							animate='open'
-							exit='closed'
-							transition={{ duration: 0.3 }}
-							onClick={toggleNav}
-						/>
-
-						{/* Menu Panel */}
-						<motion.nav
-							className='fixed top-0 right-0 h-full w-[85%] max-w-[400px] bg-light z-[9999] shadow-lifted'
-							variants={menuVariants}
-							initial='closed'
-							animate='open'
-							exit='closed'
-							transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-							onClick={(e) => e.stopPropagation()}
-							role='dialog'
-							aria-modal='true'
-						>
-							<div className='flex flex-col h-full px-xs py-xs'>
-								{/* Header */}
-								<div className='flex items-center justify-between mb-xl'>
-									<Logo height={75} width={75} variant='dark' url={logoUrl}	 />
-								</div>
-
-								{/* Links */}
-								<motion.ul
-									className='flex-1 space-y-0.5'
-									variants={linkContainerVariants}
+			{typeof document !== 'undefined' &&
+				createPortal(
+					<AnimatePresence>
+						{isNavOpen && (
+							<>
+								{/* Overlay */}
+								<motion.div
+									className='fixed inset-0 bg-dark/70 backdrop-blur-lg z-[9998]'
+									variants={overlayVariants}
 									initial='closed'
 									animate='open'
-								>
-									{mainLinks.map((link, index) => (
-										<motion.li key={index} variants={linkVariants}>
-											<Link
-												href={link.url}
-												onClick={() => handleNavClick(link.label, link.url)}
-												className='block py-0.5 text-dark text-subheading font-[500] border-b border-primary transition-colors duration-300 hover:text-primary'
-											>
-												{link.label}
-											</Link>
-										</motion.li>
-									))}
-								</motion.ul>
+									exit='closed'
+									transition={{ duration: 0.3 }}
+									onClick={toggleNav}
+								/>
 
-								{/* Contact CTA */}
-								{contactLink && (
-									<motion.div
-										initial={{ y: 20, opacity: 0 }}
-										animate={{ y: 0, opacity: 1 }}
-										transition={{ delay: 0.5, duration: 0.4 }}
-										className='pt-xs border-t border-primary/50'
-									>
-										<Link
-											href={contactLink.url}
-											onClick={() =>
-												handleNavClick(contactLink.label, contactLink.url)
-											}
-											className='block w-full py-0.75 text-center text-button bg-primary text-white rounded-sm transition-all duration-300 hover:bg-primary/75'
+								{/* Menu Panel */}
+								<motion.nav
+									className='fixed top-0 right-0 h-full w-[85%] max-w-[500px] bg-light z-[9999] shadow-lifted'
+									variants={menuVariants}
+									initial='closed'
+									animate='open'
+									exit='closed'
+									transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+									onClick={(e) => e.stopPropagation()}
+									role='dialog'
+									aria-modal='true'
+								>
+									<div className='flex flex-col h-full px-xs py-xs'>
+										{/* Header */}
+										<div className='flex items-center justify-between mb-xl'>
+											<Logo height={75} width={75} variant='dark' url={logoUrl} />
+											<MenuIcon
+												isNavOpen={isNavOpen}
+												toggleNav={toggleNav}
+												variant='dark'
+											/>
+										</div>
+
+										{/* Links */}
+										<motion.ul
+											className='flex-1 space-y-0.5'
+											variants={linkContainerVariants}
+											initial='closed'
+											animate='open'
 										>
-											{contactLink.label}
-										</Link>
-									</motion.div>
-								)}
-							</div>
-						</motion.nav>
-					</>
+											{mainLinks.map((link, index) => (
+												<motion.li key={index} variants={linkVariants}>
+													<Link
+														href={link.url}
+														onClick={() => handleNavClick(link.label, link.url)}
+														className='block py-0.5 text-dark text-subheading font-[500] border-b border-primary transition-colors duration-300 hover:text-primary'
+													>
+														{link.label}
+													</Link>
+												</motion.li>
+											))}
+										</motion.ul>
+
+										{/* Contact CTA */}
+										{contactLink && (
+											<motion.div
+												initial={{ y: 20, opacity: 0 }}
+												animate={{ y: 0, opacity: 1 }}
+												transition={{ delay: 0.5, duration: 0.4 }}
+												className='pt-xs border-t border-primary/50'
+											>
+												<Link
+													href={contactLink.url}
+													onClick={() =>
+														handleNavClick(contactLink.label, contactLink.url)
+													}
+													className='block w-full py-0.75 text-center text-button bg-primary text-white rounded-sm transition-all duration-300 hover:bg-primary/75'
+												>
+													{contactLink.label}
+												</Link>
+											</motion.div>
+										)}
+									</div>
+								</motion.nav>
+							</>
+						)}
+					</AnimatePresence>,
+					document.body
 				)}
-			</AnimatePresence>
 		</div>
 	);
 };

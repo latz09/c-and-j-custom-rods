@@ -3,7 +3,8 @@ export const FETCH_HOME_PAGE_QUERY = `*[_type == "homePage" && _id == "homePage"
   hero{
     headline,
     subheadline,
-    image{asset->{url}, hotspot},
+    backgroundImage{asset->{url}, hotspot},
+    rodImage{asset->{url}, hotspot},
     ctaPrimary{label, url},
     ctaSecondary{label, url}
   },

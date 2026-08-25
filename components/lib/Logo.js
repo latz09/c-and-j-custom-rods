@@ -1,10 +1,12 @@
 import VerticalLogo from '@/public/images/custom-fishing-rods.svg';
 import StackedLogo from '@/public/images/custom-ice-fishing-rods.svg';
+import VerticalLogoWhite from '@/public/images/central-wisconsin-fishing-rods.svg';
 import Link from 'next/link';
 
 const logos = {
 	vertical: VerticalLogo,
 	stacked: StackedLogo,
+	verticalWhite: VerticalLogoWhite,
 };
 
 const Logo = ({ className, url, variant = 'vertical' }) => {

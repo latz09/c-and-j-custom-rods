@@ -11,6 +11,7 @@ body {
 	@apply antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #161616; /* Black — guide doesn't state a separate body color, using darkest neutral */
+	overflow-x: hidden;
 }
 
 @layer base {
@@ -50,19 +51,29 @@ body {
 	h1 {
 		color: #161616;
 		font-family: var(--font-heading);
-		font-size: clamp(4.5rem, 8vw, 8.25rem); /* guide max 8.25rem */
+		font-size: clamp(3.5rem, 8vw, 8.25rem); /* guide max 8.25rem */
 		font-weight: 600;
 		line-height: 1; /* 100% */
-		letter-spacing: -0.33rem; /* guide */
+		letter-spacing: -0.033rem; /* guide */
+		text-transform: uppercase; /* guide */
+	}
+
+	.h1-product {
+		color: #161616;
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 2.75rem);
+		font-weight: 600;
+		line-height: 1.05; /* 105% */
+		letter-spacing: -0.06rem;
 	}
 
 	h2 {
 		color: #161616;
 		font-family: var(--font-heading);
-		font-size: clamp(2.25rem, 5vw, 3.75rem); /* guide max 3.75rem */
+		font-size: clamp(3rem, 5vw, 3.75rem); /* guide max 3.75rem */
 		font-weight: 600;
 		line-height: 1.05; /* 105% */
-		letter-spacing: -0.075rem; /* guide */
+		letter-spacing: -0.0075rem; /* guide */
 	}
 
 	h3 {
@@ -187,8 +198,22 @@ body {
 	}
 }
 
+/* globals.css */
+@keyframes fade-in-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+
 html {
 	@apply scroll-smooth;
+	overflow-x: hidden;
 }
 
 .section-x-padding {
@@ -196,7 +221,7 @@ html {
 }
 
 .section-y-padding {
-	@apply py-5 lg:py-10;
+	@apply py-5 lg:py-8.75;
 }
 
 .scrollbar-hide {

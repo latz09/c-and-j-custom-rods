@@ -8,7 +8,7 @@ const PageContainer = ({ children, className }) => {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 2 }}
-			className={`${className}  `}
+			className={`${className} pt-[10vh] `}
 		>
 			{children}
 		</motion.main>

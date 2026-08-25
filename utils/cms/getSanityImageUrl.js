@@ -6,19 +6,16 @@ export function getSanityImageUrl(image, options = {}) {
 
 	const {
 		width = 1920,
-		height = 1080,
+		height,
 		quality = 90,
 		format = 'webp',
 		fit = 'crop',
 	} = options;
 
-	return urlFor(image)
-		.width(width)
-		.height(height)
-		.quality(quality)
-		.format(format)
-		.fit(fit)
-		.url();
+	let img = urlFor(image).width(width).quality(quality).format(format).fit(fit);
+	if (height) img = img.height(height);
+
+	return img.url();
 }
 
 // Get CSS object-position from Sanity hotspot data
@@ -55,12 +52,59 @@ export function getResponsiveImageUrls(image, breakpoints = {}) {
 
 // Common image size presets for your site
 export const IMAGE_PRESETS = {
-	hero: { width: 1920, height: 1080, quality: 90 },
-	card: { width: 400, height: 300, quality: 85 },
-	cardWide: { width: 600, height: 400, quality: 85 }, // 3:2 ratio
-	thumbnail: { width: 200, height: 150, quality: 80 },
-	gallery: { width: 800, height: 600, quality: 90 },
-	fullWidth: { width: 1200, height: 800, quality: 90 },
-	square: { width: 600, height: 600, quality: 85 }, // Profile pics, etc.
-	portrait: { width: 600, height: 800, quality: 85 }, // 3:4 ratio
+	heroBackground: {
+		width: 2560,
+		quality: 80,
+		format: 'webp',
+		fit: 'max',
+	},
+	heroForeground: {
+		width: 1400,
+		height: 1400, // matches source 2140x2140 aspect; object-contain in your className handles final framing
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
+	aboutBlurb: {
+		width: 1600,
+		height: 649, // matches source 1280x519 aspect ratio (~2.47:1)
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
+	ourStoryPhoto: {
+		width: 810,
+		height: 890, // 81:89 aspect ratio
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
+	reviewPhoto: {
+		width: 822, // 2x lg display width (411px) for retina sharpness
+		height: 974, // 2x lg display height (487px), matches source 91:108 ratio
+		quality: 90,
+		format: 'webp',
+		fit: 'crop',
+	},
+	inStockRodHero: {
+		width: 1200,
+		height: 1044, // matches source 646x562 aspect ratio
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
+	rodSeriesCard: {
+		width: 315,
+		height: 315,
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
+	rodSeriesHero: {
+		width: 408,
+		height: 492,
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
 };

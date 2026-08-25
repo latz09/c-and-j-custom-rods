@@ -1,6 +1,5 @@
 import { Analytics } from '@vercel/analytics/next';
-import { draftMode } from 'next/headers';
-import VisualEditingClient from '@/components/ui/VisualEditingClient';
+
 
 import Footer from '@/components/layout/navigation/Footer';
 import { fetchSeoSettings } from '@/utils/cms/fetchSeoSettings';
@@ -9,7 +8,6 @@ import JsonLd from '@/components/seo/JsonLd';
 import NavigationContainer from '@/components/layout/navigation/NavigationContainer';
 import './globals.css';
 import { Roboto_Condensed } from 'next/font/google';
-import DesignSystemBadge from '@/components/design/DesignSystemBadge';
 
 // Guide uses a single family — Roboto Condensed — for both headings and
 // body copy, at weights 400 (body/paragraphs), 500 (buttons/links), and
@@ -78,7 +76,7 @@ export default async function RootLayout({ children }) {
 				{children}
 				<Analytics />
 				<Footer businessName={seo?.siteName} />
-				<DesignSystemBadge />
+				
 				{/* {(await draftMode()).isEnabled && <VisualEditingClient />} */}
 			</body>
 		</html>

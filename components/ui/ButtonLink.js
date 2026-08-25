@@ -8,6 +8,10 @@
  * sides. Pure Tailwind + CSS custom properties, no JS state, no Framer
  * Motion, no hydration flash.
  *
+ * direction="down" variant: arrow points down, stays static (no swap,
+ * no expand/collapse), no italic text on hover. Only the variant's
+ * built-in bg/text color hover applies.
+ *
  * NOTE: this exact visual idea has shown up 3 different ways across past
  * projects (this CSS-only version, a useState + inline-style version, and
  * a Framer Motion version). This is the canonical one going forward —
@@ -27,10 +31,10 @@ const VARIANTS = {
 	'primary-on-light': 'px-1.25 bg-primary text-light hover:bg-dark',
 	'primary-on-dark': 'px-1.25 bg-secondary  text-dark hover:bg-light ',
 	'secondary-on-light':
-		'px-1.25 bg-light border border-dark text-dark hover:bg-dark hover:text-light',
+		'px-1.25 bg-light/0 border border-dark text-dark hover:bg-dark hover:text-light',
 	'secondary-on-dark':
 		'px-1.25 bg-dark border border-light text-light hover:bg-light  hover:text-dark',
-	'tertiary-on-light': 'px-1.25 text-dark hover:text-primary',
+	'tertiary-on-light': 'px-0 text-dark hover:text-primary',
 	'tertiary-on-dark': 'px-1.25 text-light hover:text-secondary',
 };
 
@@ -38,7 +42,9 @@ const VARIANTS = {
 // in every state — no per-variant arrow needed.
 // Size comes from the --aw var (set responsively on the root); height keeps
 // the original aspect ratio (15 x 14 source → h = w * 14/15).
-function Arrow({ className = '' }) {
+// direction="down" rotates the same path 90° instead of shipping a second
+// SVG — one source of truth for the arrow shape.
+export function Arrow({ className = '', direction = 'right' }) {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
@@ -46,7 +52,8 @@ function Arrow({ className = '' }) {
 			fill='none'
 			aria-hidden='true'
 			className={clsx(
-				'shrink-0 w-[var(--aw)] h-[calc(var(--aw)_*_0.93333)]',
+				'shrink-0 w-[calc(var(--aw)_*_0.8)] h-[calc(var(--aw)_*_0.8_*_0.93333)]',
+				direction === 'down' && 'rotate-90',
 				className,
 			)}
 		>
@@ -62,6 +69,7 @@ function Arrow({ className = '' }) {
 /**
  * @param {string} href - The destination link.
  * @param {string} variant - One of: 'primary-on-light', 'primary-on-dark', 'secondary-on-light', 'secondary-on-dark', 'tertiary-on-light', 'tertiary-on-dark'.
+ * @param {string} direction - 'right' (default, swap-side hover animation) or 'down' (static arrow, no swap/italic — just the variant's bg/text hover).
  * @param {boolean} external - Whether to use target="_blank".
  * @param {string} className - Additional classes.
  * @param {string} event - Optional event name for Vercel Analytics tracking (automatically prefixed with "CTA Click - ").
@@ -70,6 +78,7 @@ function Arrow({ className = '' }) {
 export default function ButtonLink({
 	href = '/',
 	variant = 'primary-on-light',
+	direction = 'right',
 	external = false,
 	className = '',
 	event,
@@ -104,10 +113,19 @@ export default function ButtonLink({
 		}
 	};
 
-	// Left slot: zero-width by default, expands on hover.
-	// Right slot: open by default, collapses on hover.
-	// Both slots always exist so there's no layout reflow.
-	const content = (
+	const isDown = direction === 'down';
+
+	// down: static label + static down-arrow, no swap/expand, no italic —
+	// only the variant's own hover:bg-/hover:text- classes do anything.
+	// right (default): original swap-side behavior, unchanged.
+	const content = isDown ? (
+		<>
+			<span className='inline-block'>{children}</span>
+			<span className='ml-[var(--ag)] inline-flex w-[var(--aw)]'>
+				<Arrow direction='down' />
+			</span>
+		</>
+	) : (
 		<>
 			<span className='inline-flex w-0 opacity-0 transition-all duration-300 ease-out group-hover:mr-[var(--ag)] group-hover:w-[var(--aw)] group-hover:opacity-100'>
 				<Arrow />

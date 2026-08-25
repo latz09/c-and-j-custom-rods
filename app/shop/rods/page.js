@@ -1,56 +1,54 @@
-import { buildPageMetadata as BPM } from '@/utils/seo/buildPageMetadata'
-import { fetchContent as fc } from '@/utils/cms/fetchContent'
-import { getProductsByTagQuery } from '@/utils/shopify/getProductsByTagQuery'
-import { FETCH_IN_STOCK_RODS_PAGE_QUERY as Q } from '@/data/queries/pages/FETCH_IN_STOCK_RODS_PAGE_QUERY'
-import { FETCH_ALL_RODSERIES_QUERY as SERIES_Q } from '@/data/queries/rodSeries/FETCH_ALL_RODSERIES_QUERY'
-import PageContainer from '@/components/animations/PageContainer'
-import Link from 'next/link'
+import { buildPageMetadata as BPM } from '@/utils/seo/buildPageMetadata';
+import { fetchContent as fc } from '@/utils/cms/fetchContent';
+import { getProductsByTagQuery } from '@/utils/shopify/getProductsByTagQuery';
+import { getProductsByCollection } from '@/utils/shopify/getProductsByCollection';
+import { FETCH_IN_STOCK_RODS_PAGE_QUERY as Q } from '@/data/queries/pages/FETCH_IN_STOCK_RODS_PAGE_QUERY';
+import { FETCH_ALL_RODSERIES_QUERY as SERIES_Q } from '@/data/queries/rodSeries/FETCH_ALL_RODSERIES_QUERY';
+import PageContainer from '@/components/animations/PageContainer';
+import InStockRodHero from '@/components/sections/in-stock-rods/InStockRodHero';
+import RodsBySeriesSection from '@/components/sections/in-stock-rods/RodsBySeriesSection';
+import AllRodsSection from '@/components/sections/in-stock-rods/AllRodsSection';
+import CallToAction from '@/components/ui/CallToActions';
 
 export async function generateMetadata() {
-  return BPM({ slug: '/shop/rods', query: Q })
+	return BPM({ slug: '/shop/rods', query: Q });
 }
 
 const InStockRods = async () => {
-  const [data, seriesList] = await Promise.all([
-    fc(Q),
-    fc(SERIES_Q),
-  ])
+	const [data, seriesList] = await Promise.all([fc(Q), fc(SERIES_Q)]);
+	const { hero, bySeries, fullGrid } = data?.page || {};
 
-  const seriesWithProducts = await Promise.all(
-    (seriesList ?? []).map(async (series) => {
-      const products = await getProductsByTagQuery(
-        `tag:'${series.applicationType}' AND tag:'${series.slug}'`
-      )
-      return { ...series, products }
-    })
-  )
+	const [seriesWithProducts, allRods] = await Promise.all([
+		Promise.all(
+			(seriesList ?? []).map(async (series) => {
+				const products = await getProductsByTagQuery(
+					`tag:'${series.applicationType}' AND tag:'${series.slug}'`,
+				);
+				return { ...series, products };
+			}),
+		),
+		getProductsByCollection('in-stock-rods'),
+	]);
 
-  return (
-    <PageContainer>
-      <div className="grid gap-8 p-8">
-        <div>{data?.page?.title}</div>
+	return (
+		<PageContainer>
+			<InStockRodHero data={hero} />
+			<RodsBySeriesSection
+				heading={bySeries?.heading}
+				subheading={bySeries?.subheading}
+				series={seriesWithProducts}
+			/>
+			<AllRodsSection
+				heading={fullGrid?.heading}
+				subheading={fullGrid?.subheading}
+				products={allRods}
+				seriesList={seriesList ?? []}
+			/>
+      <CallToAction variant='product' />
+		</PageContainer>
+	);
+};
 
-        {seriesWithProducts.map((series) => (
-          <div key={series.slug}>
-            <Link href={`/shop/rods/${series.slug}`}>
-              <h2>{series.name}</h2>
-            </Link>
-            <ul>
-              {series.products.map((p) => (
-                <li key={p.id}>
-                  <Link href={`/shop/rods/${p.handle}`}>
-                    {p.title} — ${p.priceRange.minVariantPrice.amount}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </PageContainer>
-  )
-}
+export default InStockRods;
 
-export default InStockRods
-
-export const revalidate = 10
+export const revalidate = 10;
