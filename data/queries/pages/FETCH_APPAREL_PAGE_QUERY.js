@@ -5,6 +5,7 @@ export const FETCH_APPAREL_PAGE_QUERY = `*[_type == "apparelPage" && _id == "app
     body,
     image{asset->{url}, hotspot}
   },
+  gridHeading,
   seo{
     title,
     description,

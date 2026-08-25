@@ -8,6 +8,9 @@ const CTA_CLASSES = 'px-0 text-dark group-hover:text-primary';
 // consistency across both grids.
 const CARD_IMAGE_SIZE = 200;
 
+const IMAGE_HOVER_CLASSES =
+	'object-cover transition-all duration-500 group-hover:scale-[0.975] group-hover:rotate-6';
+
 function seriesNameForProduct(product, seriesList) {
 	const seriesTag = product.tags?.find(
 		(t) => t !== 'open-water' && t !== 'ice',
@@ -24,6 +27,10 @@ export default function RodCard({ product, seriesList, index = 0 }) {
 	const price = Number(product.priceRange.minVariantPrice.amount);
 	const displayName = product.title;
 	const seriesName = seriesNameForProduct(product, seriesList);
+
+	const galleryImages = product.images?.edges?.map((e) => e.node) ?? [];
+	const primaryImage = product.featuredImage ?? galleryImages[0];
+	const hoverImage = galleryImages.find((img) => img.url !== primaryImage?.url);
 
 	return (
 		<div
@@ -48,15 +55,22 @@ export default function RodCard({ product, seriesList, index = 0 }) {
 						</span>
 					)}
 				</div>
-
-				<div className='flex justify-center overflow-hidden rounded mb-1'>
-					{product.featuredImage?.url && (
+				<div className='relative w-full lg:w-[95%] mx-auto aspect-square overflow-hidden rounded mb-1 '>
+					{primaryImage?.url && (
 						<Image
-							src={product.featuredImage.url}
-							alt={product.featuredImage.altText || displayName}
-							width={CARD_IMAGE_SIZE}
-							height={CARD_IMAGE_SIZE}
-							className='transition-transform duration-500 group-hover:scale-[1.2] group-hover:-rotate-6'
+							src={primaryImage.url}
+							alt={primaryImage.altText || displayName}
+							fill
+							className={`${IMAGE_HOVER_CLASSES} ${hoverImage ? 'group-hover:opacity-0' : ''}`}
+						/>
+					)}
+
+					{hoverImage && (
+						<Image
+							src={hoverImage.url}
+							alt={hoverImage.altText || displayName}
+							fill
+							className={`absolute inset-0 opacity-0 group-hover:opacity-100 ${IMAGE_HOVER_CLASSES}`}
 						/>
 					)}
 				</div>

@@ -24,7 +24,7 @@ export default function ReelCard({ product, index = 0 }) {
 							alt={product.featuredImage.altText || displayName}
 							width={CARD_IMAGE_SIZE}
 							height={CARD_IMAGE_SIZE}
-							className='transition-transform duration-500 group-hover:scale-[1.2] group-hover:-rotate-6'
+							className='transition-transform duration-500 group-hover:scale-[0.975] group-hover:rotate-6'
 						/>
 					)}
 				</div>

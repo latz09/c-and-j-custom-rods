@@ -5,6 +5,7 @@ export const FETCH_REELS_PAGE_QUERY = `*[_type == "reelsPage" && _id == "reelsPa
     body,
     image{asset->{url}, hotspot}
   },
+  gridHeading,
   seo{
     title,
     description,

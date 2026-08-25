@@ -14,8 +14,17 @@ const COLLECTION_PRODUCTS_QUERY = `
             handle
             tags
             featuredImage { url altText }
+            images(first: 2) { edges { node { url altText } } }
             priceRange { minVariantPrice { amount currencyCode } }
             availableForSale
+            variants(first: 20) {
+              edges {
+                node {
+                  image { url altText }
+                  selectedOptions { name value }
+                }
+              }
+            }
           }
         }
       }

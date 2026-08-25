@@ -12,6 +12,7 @@ const PRODUCTS_BY_QUERY = `
           handle
           tags
           featuredImage { url altText }
+          images(first: 2) { edges { node { url altText } } }
           priceRange { minVariantPrice { amount currencyCode } }
           availableForSale
         }
