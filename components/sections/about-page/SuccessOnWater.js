@@ -112,12 +112,12 @@ const WaterImageItem = ({ image, index }) => {
 const Progress = ({ count, active }) => {
 	if (count <= 1) return <span />;
 	return (
-		<div className='flex items-center gap-0.75' aria-hidden='true'>
+		<div className='flex items-center gap-0.75 w-full' aria-hidden='true'>
 			{Array.from({ length: count }).map((_, i) => (
 				<span
 					key={i}
-					className={`h-[4px] rounded-full transition-all duration-300 ${
-						i === active ? 'w-[2.78rem] bg-primary' : 'w-[2.78rem] bg-primary/50'
+					className={`h-[4px] flex-1 rounded-full transition-all duration-300 ${
+						i === active ? 'bg-primary' : 'bg-primary/50'
 					}`}
 				/>
 			))}
