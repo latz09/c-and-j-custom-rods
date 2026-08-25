@@ -65,13 +65,13 @@ export const IMAGE_PRESETS = {
 		format: 'webp',
 		fit: 'max',
 	},
-	aboutBlurb: {
-		width: 1600,
-		height: 649, // matches source 1280x519 aspect ratio (~2.47:1)
-		quality: 90,
-		format: 'webp',
-		fit: 'max',
-	},
+aboutBlurb: {
+	width: 2400,
+	height: 974, // same 2.47:1 ratio, just higher-res source
+	quality: 90,
+	format: 'webp',
+	fit: 'max',
+},
 	ourStoryPhoto: {
 		width: 810,
 		height: 890, // 81:89 aspect ratio
