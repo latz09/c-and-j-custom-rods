@@ -93,13 +93,13 @@ function SeriesCard({ series: s, index }) {
 				</div>
 
 				<div className='lg:w-[50%] mx-auto overflow-hidden rounded'>
-	<SanityImage
-		image={s.previewImage}
-		alt={s.name}
-		preset='rodSeriesHero'
-		className='w-full h-auto rounded transition-transform duration-500 group-hover:scale-[0.975] group-hover:rotate-6'
-	/>
-</div>
+					<SanityImage
+						image={s.previewImage}
+						alt={s.name}
+						preset='rodSeriesHero'
+						className='w-full h-auto rounded transition-transform duration-500 group-hover:scale-[0.975] group-hover:rotate-6'
+					/>
+				</div>
 
 				<h4>{s.name}</h4>
 				<p className='mt-0.75 lg:mt-1 mb-1 lg:mb-1.5 text-paragraph-lg'>

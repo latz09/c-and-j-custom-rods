@@ -1,13 +1,15 @@
 import Link from 'next/link';
 import Logo from '../../lib/Logo';
+import Topography from '@/components/ui/Topography';
 
 const currentYear = new Date().getFullYear();
 
 const Footer = ({ businessName }) => {
 	return (
-		<footer className='bg-dark py-12 '>
-			<div className='section-x-padding'>
-				<Logo variant='stacked' className=' h-auto' />
+		<footer className='relative overflow-hidden bg-dark py-12'>
+			<Topography variant="light" fade="top" opacity={1} />
+			<div className='relative z-10 section-x-padding'>
+				<Logo variant='stacked' className='h-auto' />
 			</div>
 			{/* <CopyRight businessName={businessName} /> */}
 		</footer>
