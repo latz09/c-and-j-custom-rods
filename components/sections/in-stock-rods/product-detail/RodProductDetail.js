@@ -56,7 +56,7 @@ const RodProductDetail = ({
 					/>
 				</div>
 
-				<div className='hidden lg:block lg:order-1 lg:sticky lg:top-4 lg:self-start'>
+				<div className='hidden lg:block lg:order-1 lg:sticky lg:top-[13vh] lg:self-start'>
 					<ProductGallery images={galleryImages} title={title} />
 				</div>
 			</div>

@@ -3,7 +3,8 @@ import { fetchContent as fc } from '@/utils/cms/fetchContent'
 import { getProductsByCollection } from '@/utils/shopify/getProductsByCollection'
 import { FETCH_APPAREL_PAGE_QUERY as Q } from '@/data/queries/pages/FETCH_APPAREL_PAGE_QUERY'
 import PageContainer from '@/components/animations/PageContainer'
-import Link from 'next/link'
+import ApparelHero from '@/components/sections/apparel/ApparelHero'
+import ApparelGrid from '@/components/sections/apparel/ApparelGrid'
 
 export async function generateMetadata() {
   return BPM({ slug: '/shop/apparel', query: Q })
@@ -17,18 +18,9 @@ const ApparelHub = async () => {
 
   return (
     <PageContainer>
-      <div className="grid gap-4 p-8">
-        <div>{data?.hero?.heading}</div>
-        <ul>
-          {products.map((p) => (
-            <li key={p.id}>
-              <Link href={`/shop/apparel/${p.handle}`}>
-                {p.title} — ${p.priceRange.minVariantPrice.amount}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ApparelHero data={data?.hero} />
+
+      <ApparelGrid products={products} className='grid md:grid-cols-2 lg:grid-cols-3  gap-2 px-2 lg:px-4 py-4' />
     </PageContainer>
   )
 }

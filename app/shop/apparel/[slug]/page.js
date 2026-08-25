@@ -1,10 +1,8 @@
-import { buildPageMetadata as BPM } from '@/utils/seo/buildPageMetadata'
-import { fetchContent as fc } from '@/utils/cms/fetchContent'
-import { getProductByHandle } from '@/utils/shopify/getProductByHandle'
-import { FETCH_PRODUCT_TESTIMONIAL_QUERY as TQ } from '@/data/queries/testimonials/FETCH_PRODUCT_TESTIMONIAL_QUERY'
-import { FETCH_GLOBAL_CTA_QUERY as CQ } from '@/data/queries/globalCta/FETCH_GLOBAL_CTA_QUERY'
 import { notFound } from 'next/navigation'
+import { getProductByHandle } from '@/utils/shopify/getProductByHandle'
+import { getProductsByCollection } from '@/utils/shopify/getProductsByCollection'
 import PageContainer from '@/components/animations/PageContainer'
+import ApparelProductDetail from '@/components/sections/apparel/ApparelProductDetail'
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -15,23 +13,16 @@ export async function generateMetadata({ params }) {
 const ApparelProductPage = async ({ params }) => {
   const { slug } = await params
 
-  const [product, testimonialData, ctaData] = await Promise.all([
+  const [product, allApparel] = await Promise.all([
     getProductByHandle(slug),
-    fc(TQ, { seriesTag: '' }), // no seriesTag for apparel — falls straight to isDefault
-    fc(CQ),
+    getProductsByCollection('apparel'),
   ])
 
   if (!product) notFound()
 
-  const testimonial = testimonialData?.matched || testimonialData?.default
-  const ctaBanner = ctaData?.productCtaBanner
-
   return (
     <PageContainer>
-      <h1>{product.title}</h1>
-      <p>${product.priceRange.minVariantPrice.amount}</p>
-      <p>{product.description}</p>
-      {/* real UI comes later — this is just proving data flows */}
+      <ApparelProductDetail product={product} allApparel={allApparel} />
     </PageContainer>
   )
 }

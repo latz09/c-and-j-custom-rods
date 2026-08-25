@@ -1,8 +1,6 @@
-// feeds the rods resolver's product branch, reels, apparel
-
+// utils/shopify/getProductByHandle.js
 import { shopifyFetch } from './shopifyFetch';
 
-// utils/shopify/getProductByHandle.js
 const PRODUCT_QUERY = `
   query GetProductByHandle($handle: String!) {
     product(handle: $handle) {
@@ -16,19 +14,20 @@ const PRODUCT_QUERY = `
       featuredImage { url altText }
       images(first: 10) { edges { node { url altText } } }
       priceRange { minVariantPrice { amount currencyCode } }
-metafields(identifiers: [
-  { namespace: "custom", key: "rod_length" }
-  { namespace: "custom", key: "line_weight" }
-  { namespace: "custom", key: "lure_weight" }
-  { namespace: "custom", key: "short_description" }
-  { namespace: "custom", key: "grip_description" }
-  { namespace: "custom", key: "thread_color" }
-  { namespace: "custom", key: "blank" }
-  { namespace: "custom", key: "max_drag" }
-  { namespace: "custom", key: "weight" }
-  { namespace: "custom", key: "gear_ratio" }
-  { namespace: "custom", key: "bearings" }
-]) { key value }
+      options { name values }
+      metafields(identifiers: [
+        { namespace: "custom", key: "rod_length" }
+        { namespace: "custom", key: "line_weight" }
+        { namespace: "custom", key: "lure_weight" }
+        { namespace: "custom", key: "short_description" }
+        { namespace: "custom", key: "grip_description" }
+        { namespace: "custom", key: "thread_color" }
+        { namespace: "custom", key: "blank" }
+        { namespace: "custom", key: "max_drag" }
+        { namespace: "custom", key: "weight" }
+        { namespace: "custom", key: "gear_ratio" }
+        { namespace: "custom", key: "bearings" }
+      ]) { key value }
       variants(first: 20) {
         edges {
           node {

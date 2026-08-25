@@ -11,7 +11,30 @@ body {
 	@apply antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	color: #161616; /* Black — guide doesn't state a separate body color, using darkest neutral */
-	overflow-x: hidden;
+	
+}
+
+.reel-description ul {
+	list-style: none;
+	padding-left: 0;
+	margin-top: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.reel-description li {
+	position: relative;
+	padding-left: 1.35rem;
+}
+
+.reel-description li::before {
+	content: '✓';
+	@apply text-primary;
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-weight: 700;
 }
 
 @layer base {

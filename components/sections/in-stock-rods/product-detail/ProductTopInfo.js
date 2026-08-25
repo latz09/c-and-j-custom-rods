@@ -9,7 +9,7 @@ export default function ProductTopInfo({ seriesInfo, seriesTag, title, price, av
 
 			<h1 className='h1-product normal-case mb-1.25'>{title}</h1>
 
-			<h5 className='text-primary mb-2.5 lg:mb-1.25'>${price}</h5>
+			<h5 className='text-primary mb-2.5 lg:mb-1.25'>${Number(price).toFixed(2)}</h5>
 		</div>
 	);
 }
