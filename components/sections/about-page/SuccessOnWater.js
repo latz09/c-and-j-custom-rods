@@ -84,7 +84,7 @@ const SuccessOnWater = ({ data }) => {
 					</div>
 				</div>
 
-				<div className='flex items-center justify-between gap-1'>
+				<div className='flex items-center justify-between gap-0.5 lg:gap-1'>
 					<Progress count={pages} active={activePage} />
 				</div>
 			</div>
