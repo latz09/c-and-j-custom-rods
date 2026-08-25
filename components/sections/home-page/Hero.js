@@ -12,7 +12,7 @@ const Hero = ({ data }) => {
 	} = data ? data : {};
 
 	return (
-		<div className='relative w-full h-[120vh]  overflow-hidden '>
+		<div className='relative -mt-[10vh] w-full h-[126vh] lg:h-[113vh] overflow-hidden'>
 			{/* Background image */}
 			{backgroundImage?.asset && (
 				<SanityImage
@@ -32,10 +32,10 @@ const Hero = ({ data }) => {
 			{/* Bottom darken strip — full width, breaks out of section-x-padding */}
 			<div className='absolute bottom-0 left-0 right-0 z-10 h-[10rem] bg-gradient-to-b from-dark/0 to-dark ' />
 
-			<div className='section-x-padding absolute inset-0 z-20 flex flex-col pt-[3.25rem]  max-h-[100vh]  '>
-				{headline && <h1 className='max-w-[85rem]'>{headline}</h1>}
+			<div className='section-x-padding absolute inset-0 z-20 flex flex-col pt-[calc(10vh+2.5rem)] lg:pt-[calc(10vh+3.25rem)]  max-h-[100vh]  '>
+				{headline && <h1 className='md:max-w-[85rem]'>{headline}</h1>}
 				{subheadline && (
-					<p className='text-subheading my-2.5'>{subheadline}</p>
+					<p className='text-subheading mt-1.5 lg:mt-2.5 mb-2.5'>{subheadline}</p>
 				)}
 				<div className='flex flex-col items-start  lg:flex-row gap-1'>
 					{ctaPrimary?.url && (

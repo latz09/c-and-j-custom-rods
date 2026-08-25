@@ -74,7 +74,7 @@ body {
 	h1 {
 		color: #161616;
 		font-family: var(--font-heading);
-		font-size: clamp(3.5rem, 8vw, 8.25rem); /* guide max 8.25rem */
+		font-size: clamp(3.35rem, 8vw, 8.25rem); /* guide max 8.25rem */
 		font-weight: 600;
 		line-height: 1; /* 100% */
 		letter-spacing: -0.033rem; /* guide */
@@ -240,7 +240,7 @@ html {
 }
 
 .section-x-padding {
-	@apply px-1.25 md:px-2.5 lg:px-5 3xl:max-w-[130rem] 3xl:mx-auto;
+	@apply px-1 sm:px-1.25 md:px-2.5 lg:px-5 3xl:max-w-[130rem] 3xl:mx-auto;
 }
 
 .section-y-padding {
