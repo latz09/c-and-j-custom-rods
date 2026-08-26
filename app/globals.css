@@ -129,7 +129,7 @@ body {
 	h6 {
 		color: #161616;
 		font-family: var(--font-heading);
-		font-size: clamp(1.2rem, 2vw, 1.5rem); /* guide max 1.5rem */
+		font-size: clamp(1.2rem, 2vw, 1.4rem); /* guide max 1.5rem */
 		font-weight: 600;
 		line-height: 1.05; /* 105% */
 		letter-spacing: -0.03rem; /* guide */

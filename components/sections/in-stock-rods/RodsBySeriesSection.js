@@ -5,10 +5,16 @@ import Link from 'next/link';
 import SanityImage from '@/components/ui/SanityImage';
 import { Arrow } from '@/components/ui/ButtonLink';
 
-const TOGGLE_OPTIONS = [
-	{ type: 'open-water', label: 'Open water series' },
-	{ type: 'ice', label: 'Ice fishing series' },
-];
+const TOGGLE_OPTIONS_BY_SEASON = {
+	'open-water': [
+		{ type: 'open-water', label: 'Open water series' },
+		{ type: 'ice', label: 'Ice fishing series' },
+	],
+	ice: [
+		{ type: 'ice', label: 'Ice fishing series' },
+		{ type: 'open-water', label: 'Open water series' },
+	],
+};
 
 // TEMP: series with no Shopify products yet won't show "coming soon" /
 // "out of stock" messaging — treated as if stock exists. Flip to false
@@ -129,8 +135,15 @@ function SeriesCard({ series: s, index }) {
 		</div>
 	);
 }
-export default function RodsBySeriesSection({ heading, subheading, series }) {
-	const [activeType, setActiveType] = useState('open-water');
+export default function RodsBySeriesSection({
+	heading,
+	subheading,
+	series,
+	season,
+}) {
+	const activeSeason = season ?? 'open-water';
+	const toggleOptions = TOGGLE_OPTIONS_BY_SEASON[activeSeason];
+	const [activeType, setActiveType] = useState(activeSeason);
 
 	const filtered = series.filter((s) => s.applicationType === activeType);
 
@@ -142,7 +155,30 @@ export default function RodsBySeriesSection({ heading, subheading, series }) {
 					'Select open water or ice fishing to view its respective series.'}
 			</p>
 
-			<WaterTypeToggle activeType={activeType} setActiveType={setActiveType} />
+			<div className='flex'>
+				{toggleOptions.map((opt) => {
+					const active = activeType === opt.type;
+					const isIce = opt.type === 'ice';
+					const activeBg = isIce ? 'bg-primary' : 'bg-secondary';
+					const activeText = isIce ? 'text-white' : '';
+
+					return (
+						<button
+							key={opt.type}
+							type='button'
+							onClick={() => setActiveType(opt.type)}
+							aria-pressed={active}
+							className={`py-1 px-1.5 rounded transition-colors duration-300 ${active ? activeBg : ''}`}
+						>
+							<h6
+								className={`transition-colors duration-300 ${active ? activeText : ''}`}
+							>
+								{opt.label}
+							</h6>
+						</button>
+					);
+				})}
+			</div>
 
 			<div className='grid lg:grid-cols-2 gap-1.5 mt-1.5 lg:mt-1.25'>
 				{filtered.map((s, index) => (

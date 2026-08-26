@@ -16,7 +16,7 @@ export async function generateMetadata() {
 
 const InStockRods = async () => {
 	const [data, seriesList] = await Promise.all([fc(Q), fc(SERIES_Q)]);
-	const { hero, bySeries, fullGrid } = data?.page || {};
+	const { hero, bySeries, fullGrid, season } = data?.page || {};
 
 	const [seriesWithProducts, allRods] = await Promise.all([
 		Promise.all(
@@ -37,18 +37,19 @@ const InStockRods = async () => {
 				heading={bySeries?.heading}
 				subheading={bySeries?.subheading}
 				series={seriesWithProducts}
+				season={season}
 			/>
 			<AllRodsSection
 				heading={fullGrid?.heading}
 				subheading={fullGrid?.subheading}
 				products={allRods}
 				seriesList={seriesList ?? []}
+				season={season}
 			/>
-      <CallToAction variant='product' />
+			<CallToAction variant='product' />
 		</PageContainer>
 	);
 };
-
 export default InStockRods;
 
 export const revalidate = 10;
