@@ -1,12 +1,33 @@
 export const METAFIELD_LABELS = {
 	rod_length: 'Rod Length',
+	power: 'Power',
+	action: 'Action',
 	line_weight: 'Line Weight',
 	lure_weight: 'Lure Weight',
 	blank: 'Blank',
 	thread_color: 'Thread Color',
+	accent_thread_color: 'Accent Thread Color',
 	grip_description: 'Grip',
+	reel_size: 'Reel Size',
 	max_drag: 'Max Drag',
 	weight: 'Weight',
 	gear_ratio: 'Gear Ratio',
 	bearings: 'Bearings',
 };
+
+export const SPEC_DISPLAY_ORDER = [
+	'rod_length',
+	'power',
+	'action',
+	'line_weight',
+	'lure_weight',
+	'grip_description',
+	'blank',
+	'thread_color',
+	'accent_thread_color',
+	'reel_size',
+	'max_drag',
+	'weight',
+	'gear_ratio',
+	'bearings',
+];

@@ -12,7 +12,7 @@ const Hero = ({ data }) => {
 	} = data ? data : {};
 
 	return (
-		<div className='relative -mt-[10vh] w-full h-[126vh] lg:h-[113vh] overflow-hidden'>
+		<div className='relative -mt-[10svh] w-full h-[126svh] lg:h-[113vh] overflow-hidden'>
 			{/* Background image */}
 			{backgroundImage?.asset && (
 				<SanityImage

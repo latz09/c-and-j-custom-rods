@@ -1,7 +1,7 @@
 import { METAFIELD_LABELS } from '../in-stock-rods/product-detail/metafieldLabels';
-import CartIcon from '@/components/ui/CartIcon';
+import AddToCartButton from '@/components/ui/AddToCartButton';
 
-export default function ApparelSpecsAndCta({ specs, descriptionHtml, availableForSale }) {
+export default function ApparelSpecsAndCta({ specs, descriptionHtml, availableForSale, variantId }) {
 	return (
 		<div>
 			{specs.length > 0 && (
@@ -14,14 +14,11 @@ export default function ApparelSpecsAndCta({ specs, descriptionHtml, availableFo
 				</div>
 			)}
 
-			<button
-				className='mt-1 mb-2.5 lg:mb-2 py-0.75 px-1.25 bg-primary text-white rounded inline-flex items-center gap-[0.625rem]'
-				type='button'
+			<AddToCartButton
+				variantId={variantId}
 				disabled={!availableForSale}
-			>
-				Add to cart
-				<CartIcon />
-			</button>
+				className='mt-0.75 mb-2.5 lg:mb-2'
+			/>
 
 			<div className='space-y-1 text-paragraph' dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
 		</div>

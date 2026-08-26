@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const isGlowImage = (img) => img?.altText?.toLowerCase().includes('glow');
+
 export default function ProductGallery({ images, title }) {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const activeImage = images[activeIndex];
@@ -21,9 +23,17 @@ export default function ProductGallery({ images, title }) {
 		else if (info.offset.x > swipeThreshold) goTo(activeIndex - 1);
 	};
 
+	const activeIsGlow = isGlowImage(activeImage);
+
 	return (
 		<div>
-			<div className='relative h-[24rem] 3xl:h-[32rem] border border-[#D2D2D2] rounded bg-gradient-to-b from-light via-accent/0 to-accent/60 p-2 overflow-hidden'>
+			<div
+				className={`relative h-[24rem] 3xl:h-[32rem] border border-[#D2D2D2] rounded p-2 overflow-hidden transition-colors duration-500 ${
+					activeIsGlow
+						? 'bg-gradient-to-b from-dark via-dark to-dark/90 border-dark/0'
+						: 'bg-gradient-to-b from-light via-accent/0 to-accent/60 '
+				}`}
+			>
 				<AnimatePresence mode='sync' initial={false}>
 					{activeImage && (
 						<motion.div
@@ -70,25 +80,33 @@ export default function ProductGallery({ images, title }) {
 
 					{/* Desktop: 4-col thumbnail grid */}
 					<div className='hidden lg:grid grid-cols-4 gap-1 mt-1'>
-						{images.map((img, i) => (
-							<button
-								key={i}
-								type='button'
-								onClick={() => goTo(i)}
-								aria-current={i === activeIndex}
-								className={`relative h-[6.5rem] max-h-[6.5rem] 3xl:h-[8.25rem] 3xl:max-h-[8.25rem] rounded bg-gradient-to-b from-light via-accent/0 to-accent/60 p-1 transition-colors duration-300 border ${
-									i === activeIndex ? 'border-primary' : 'border-[#D2D2D2]'
-								}`}
-							>
-								<Image
-									src={img.url}
-									alt={img.altText || title}
-									fill
-									className='object-contain'
-									sizes='112px'
-								/>
-							</button>
-						))}
+						{images.map((img, i) => {
+							const glow = isGlowImage(img);
+
+							return (
+								<button
+									key={i}
+									type='button'
+									onClick={() => goTo(i)}
+									aria-current={i === activeIndex}
+									className={`group relative h-[6.5rem] max-h-[6.5rem] 3xl:h-[8.25rem] 3xl:max-h-[8.25rem] rounded p-1 border transition-colors duration-300 ${
+										i === activeIndex ? 'border-primary' : 'border-[#D2D2D2]'
+									} ${
+										glow
+											? 'bg-black'
+											: 'bg-gradient-to-b from-light via-accent/0 to-accent/60'
+									}`}
+								>
+									<Image
+										src={img.url}
+										alt={img.altText || title}
+										fill
+										className='object-contain'
+										sizes='112px'
+									/>
+								</button>
+							);
+						})}
 					</div>
 				</>
 			)}

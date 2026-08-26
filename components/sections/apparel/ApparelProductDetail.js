@@ -80,7 +80,7 @@ export default function ApparelProductDetail({ product, allApparel = [] }) {
 	const specs = Object.entries(specFields).filter(([, value]) => value);
 
 return (
-	<div className='pb-5 lg:pb-8.75'>
+	<div className='pb-5 lg:pb-8.75 mb-3 lg:mb-5'>
 		<div className='lg:min-h-[85vh] lg:flex lg:items-center'>
 			<div className='mt-1 section-x-padding grid lg:grid-cols-2 lg:gap-5.5 lg:items-start w-full'>
 				<div className='order-1 lg:order-2 flex flex-col'>
@@ -115,6 +115,7 @@ return (
 				</div>
 			</div>
 		</div>
+		
 
 		{allApparel.length > 0 && (
 			<div className='section-x-padding mt-5 lg:mt-8.75'>
@@ -122,6 +123,9 @@ return (
 				<ApparelGrid products={allApparel} excludeHandle={product.handle} />
 			</div>
 		)}
+
+
+		
 	</div>
 );
 }

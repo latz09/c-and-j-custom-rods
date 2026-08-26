@@ -2,6 +2,7 @@ import ReelTopInfo from './ReelTopInfo';
 import ReelImage from './ReelImage';
 import ReelSpecsAndCta from './ReelSpecAndCta';
 import ReelGrid from './ReelGrid';
+import CallToAction from '@/components/ui/CallToActions';
 
 const ReelProductDetail = ({ product, allReels = [] }) => {
 	const {
@@ -15,13 +16,13 @@ const ReelProductDetail = ({ product, allReels = [] }) => {
 	} = product;
 
 	const price = priceRange.minVariantPrice.amount;
-	const { short_description, ...specFields } = metafields ?? {};
+	const { short_description: shortDescription, ...specFields } = metafields ?? {};
 	const specs = Object.entries(specFields).filter(([, value]) => value);
 
 	const productVariants = variants?.edges?.map((e) => e.node) ?? [];
 
 	return (
-		<div className='pb-5 lg:pb-8.75'>
+		<div className=''>
 			<div className='mt-1 lg:mt-2 section-x-padding grid lg:grid-cols-2 lg:gap-5.5 lg:items-start'>
 				<div className='order-1 lg:order-2 flex flex-col'>
 					<ReelTopInfo
@@ -36,6 +37,7 @@ const ReelProductDetail = ({ product, allReels = [] }) => {
 
 					<ReelSpecsAndCta
 						specs={specs}
+						shortDescription={shortDescription}
 						descriptionHtml={descriptionHtml}
 						availableForSale={availableForSale}
 					/>
@@ -57,13 +59,13 @@ const ReelProductDetail = ({ product, allReels = [] }) => {
 					))}
 				</div>
 			)}
-
 			{allReels.length > 0 && (
-				<div className='section-x-padding mt-5 lg:mt-8.75'>
+				<div className='section-x-padding mt-5 lg:mt-8.75 mb-5 lg:mb-8.75'>
 					<h3 className='mb-2'>More Reels</h3>
 					<ReelGrid products={allReels} excludeHandle={product.handle} />
 				</div>
 			)}
+			<CallToAction variant='triple' />
 		</div>
 	);
 };

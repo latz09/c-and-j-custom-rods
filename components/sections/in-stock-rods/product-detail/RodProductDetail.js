@@ -49,11 +49,12 @@ const RodProductDetail = ({
 					</div>
 
 					<ProductSpecsAndCta
-						specs={specs}
-						shortDescription={shortDescription}
-						descriptionHtml={descriptionHtml}
-						availableForSale={availableForSale}
-					/>
+	specs={specs}
+	seriesName={seriesInfo?.name ?? seriesTag}
+	shortDescription={shortDescription}
+	descriptionHtml={descriptionHtml}
+	availableForSale={availableForSale}
+/>
 				</div>
 
 				<div className='hidden lg:block lg:order-1 lg:sticky lg:top-[13vh] lg:self-start'>

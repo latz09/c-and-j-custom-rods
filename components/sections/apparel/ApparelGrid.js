@@ -3,7 +3,7 @@ import ApparelCard from "./ApparelCard";
 export default function ApparelGrid({
 	products,
 	excludeHandle,
-	className = 'grid md:grid-cols-2 gap-1.75 lg:gap-1.5 px-0 py-2.25',
+	className = 'grid md:grid-cols-2 gap-[1.75rem] lg:gap-1.5 px-0 py-2.25',
 }) {
 	const visibleProducts = excludeHandle
 		? products.filter((p) => p.handle !== excludeHandle)

@@ -7,7 +7,7 @@ const Collections = ({ data }) => {
 	return (
 		<div className='section-x-padding'>
 			<h2 className='text-light mb-2'>{heading}</h2>
-			<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 2xl:grid-cols-4 gap-1.5'>
+			<div className='grid grid-cols-1  md:grid-cols-2 2xl:grid-cols-4 gap-1.5 lg:gap-1.25'>
 				{items?.map((item) => (
 					<CollectionItem key={item.label} item={item} />
 				))}
@@ -29,7 +29,7 @@ const CollectionItem = ({ item }) => {
 		>
 			<div className='bg-gradient-to-b from-[#c4c4c4] to-[#1f1f1f] border border-light rounded overflow-hidden flex flex-col items-center p-1 space-y-1.5'>
 				{imageUrl && (
-					<div className='relative w-full h-[15rem] md:h-[15rem] rounded'>
+					<div className='relative w-full h-[15rem] md:h-[17rem] rounded'>
 						<Image
 							src={imageUrl}
 							alt={label || ''}

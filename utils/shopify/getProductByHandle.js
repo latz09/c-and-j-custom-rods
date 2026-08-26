@@ -17,12 +17,16 @@ const PRODUCT_QUERY = `
       options { name values }
       metafields(identifiers: [
         { namespace: "custom", key: "rod_length" }
+        { namespace: "custom", key: "power" }
+        { namespace: "custom", key: "action" }
         { namespace: "custom", key: "line_weight" }
         { namespace: "custom", key: "lure_weight" }
         { namespace: "custom", key: "short_description" }
         { namespace: "custom", key: "grip_description" }
         { namespace: "custom", key: "thread_color" }
+        { namespace: "custom", key: "accent_thread_color" }
         { namespace: "custom", key: "blank" }
+        { namespace: "custom", key: "reel_size" }
         { namespace: "custom", key: "max_drag" }
         { namespace: "custom", key: "weight" }
         { namespace: "custom", key: "gear_ratio" }
