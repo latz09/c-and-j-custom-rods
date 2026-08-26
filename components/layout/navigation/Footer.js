@@ -6,7 +6,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = ({ businessName }) => {
 	return (
-		<footer className='relative overflow-hidden bg-dark py-12'>
+		<footer className='relative overflow-hidden bg-dark py-12 z-[999999]'>
 			<Topography variant="light" fade="top" opacity={1} />
 			<div className='relative z-10 section-x-padding'>
 				<Logo variant='stacked' className='h-auto' />

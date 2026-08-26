@@ -1,5 +1,5 @@
 'use client';
-
+import Topography from '@/components/ui/Topography';
 import { track } from '@vercel/analytics';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -8,8 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import MenuIcon from '../layout/navigation/MenuIcon';
 import Logo from '../lib/Logo';
+import { Arrow } from '@/components/ui/ButtonLink';
 
 const DARK_NAV_ROUTES = ['/about'];
+const EASE = [0.25, 0.46, 0.45, 0.94]; // same signature as StickyNav — one motion language, not two
 
 const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 	const [isNavOpen, setIsNavOpen] = useState(false);
@@ -64,15 +66,15 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 		open: {
 			opacity: 1,
 			transition: {
-				staggerChildren: 0.08,
-				delayChildren: 0.2,
+				staggerChildren: 0.07,
+				delayChildren: 0.25,
 			},
 		},
 	};
 
 	const linkVariants = {
-		closed: { x: 40, opacity: 0 },
-		open: { x: 0, opacity: 1 },
+		closed: { x: 32, opacity: 0 },
+		open: { x: 0, opacity: 1, transition: { duration: 0.5, ease: EASE } },
 	};
 
 	return (
@@ -102,37 +104,43 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 							<>
 								{/* Overlay */}
 								<motion.div
-									className='fixed inset-0 bg-dark/70 backdrop-blur-lg z-[9998]'
+									className='fixed inset-0 bg-light/75 backdrop-blur z-[9998]'
 									variants={overlayVariants}
 									initial='closed'
 									animate='open'
 									exit='closed'
-									transition={{ duration: 0.3 }}
+									transition={{ duration: 0.35, ease: EASE }}
 									onClick={toggleNav}
 								/>
 
 								{/* Menu Panel */}
 								<motion.nav
-									className='fixed top-0 right-0 h-full w-[85%] max-w-[500px] bg-light z-[9999] shadow-lifted'
+									className='fixed top-0 right-0 h-full w-[85%] max-w-[500px] bg-dark z-[9999] shadow-lifted border-l border-primary/20 overflow-hidden'
 									variants={menuVariants}
 									initial='closed'
 									animate='open'
 									exit='closed'
-									transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+									transition={{ duration: 0.5, ease: EASE }}
 									onClick={(e) => e.stopPropagation()}
 									role='dialog'
 									aria-modal='true'
 								>
-									<div className='flex flex-col h-full px-xs py-xs'>
+									<Topography variant='light' fade='top' opacity={0.5} />
+
+									<div className='relative z-10 flex flex-col h-full px-xs py-xs'>
 										{/* Header */}
-										<div className='flex items-center justify-between mb-xl'>
-											<Logo height={75} width={75} variant='dark' url={logoUrl} />
+										<motion.div
+											initial={{ opacity: 0, y: -10 }}
+											animate={{ opacity: 1, y: 0 }}
+											transition={{ delay: 0.15, duration: 0.4, ease: EASE }}
+											className='flex items-center justify-end mb-xl'
+										>
 											<MenuIcon
 												isNavOpen={isNavOpen}
 												toggleNav={toggleNav}
-												variant='dark'
+												variant='light'
 											/>
-										</div>
+										</motion.div>
 
 										{/* Links */}
 										<motion.ul
@@ -146,9 +154,23 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 													<Link
 														href={link.url}
 														onClick={() => handleNavClick(link.label, link.url)}
-														className='block py-0.5 text-dark text-subheading font-[500] border-b border-primary transition-colors duration-300 hover:text-primary'
+														className='group relative flex items-center justify-between py-0.75 border-b border-light/10'
 													>
-														{link.label}
+														<span className='flex items-baseline gap-0.75'>
+															<h4 className='text-primary font-[700] tracking-wide'>
+																{String(index + 1).padStart(2, '0')}
+															</h4>
+															<h5 className='text-light transition-colors duration-300 group-hover:text-primary'>
+																{link.label}
+															</h5>
+														</span>
+
+														<span className='inline-flex w-0 opacity-0 text-primary transition-all duration-300 ease-out group-hover:w-[1.2rem] group-hover:opacity-100'>
+															<Arrow />
+														</span>
+
+														{/* underline draw-in, independent of the static border above */}
+														<span className='absolute left-0 bottom-0 h-px w-full origin-left scale-x-0 bg-primary transition-transform duration-500 ease-out group-hover:scale-x-100' />
 													</Link>
 												</motion.li>
 											))}
@@ -159,17 +181,27 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 											<motion.div
 												initial={{ y: 20, opacity: 0 }}
 												animate={{ y: 0, opacity: 1 }}
-												transition={{ delay: 0.5, duration: 0.4 }}
-												className='pt-xs border-t border-primary/50'
+												transition={{ delay: 0.55, duration: 0.45, ease: EASE }}
+												className='pt-xs  space-y-1.5'
 											>
+												<div className='flex justify-center pb-0.5'>
+													<Logo
+														className='w-[12rem]'
+														variant='verticalWhite'
+														url={logoUrl}
+													/>
+												</div>
 												<Link
 													href={contactLink.url}
 													onClick={() =>
 														handleNavClick(contactLink.label, contactLink.url)
 													}
-													className='block w-full py-0.75 text-center text-button bg-primary text-white rounded-sm transition-all duration-300 hover:bg-primary/75'
+													className='w-full group text-button inline-flex items-center justify-center rounded-sm transition-all duration-500 py-0.75 px-1.25 bg-secondary  text-dark hover:bg-light'
 												>
-													{contactLink.label}
+													<h6>{contactLink.label}</h6>
+													<span className='inline-flex transition-transform duration-300 group-hover:translate-x-0.5'>
+														<Arrow />
+													</span>
 												</Link>
 											</motion.div>
 										)}
@@ -178,7 +210,7 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 							</>
 						)}
 					</AnimatePresence>,
-					document.body
+					document.body,
 				)}
 		</div>
 	);
