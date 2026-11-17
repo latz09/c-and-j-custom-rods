@@ -2,7 +2,18 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 const apiVersion = '2026-07'
 
-export async function shopifyFetch({ query, variables }) {
+/**
+ * Storefront API request.
+ *
+ * Caching:
+ * - Default: cached, revalidates every 60s (catalog reads).
+ * - `revalidate: n`: cached, revalidates every n seconds.
+ * - `cache: 'no-store'`: never cached. Use for every cart read and mutation.
+ */
+export async function shopifyFetch({ query, variables, cache, revalidate = 60 }) {
+  const cacheOptions =
+    cache === 'no-store' ? { cache: 'no-store' } : { next: { revalidate } }
+
   try {
     const res = await fetch(`https://${domain}/api/${apiVersion}/graphql.json`, {
       method: 'POST',
@@ -11,7 +22,7 @@ export async function shopifyFetch({ query, variables }) {
         'Shopify-Storefront-Private-Token': token,
       },
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 60 },
+      ...cacheOptions,
     })
 
     const json = await res.json()

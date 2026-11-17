@@ -9,7 +9,6 @@ import PageContainer from '@/components/animations/PageContainer';
 import RodSeriesHero from '@/components/sections/in-stock-rods/RodSeriesHero';
 import RodCard from '@/components/sections/in-stock-rods/RodCard';
 import CallToAction from '@/components/ui/CallToActions';
-import { Link } from 'react-email';
 import RodProductDetail from '@/components/sections/in-stock-rods/product-detail/RodProductDetail';
 
 async function resolveSlug(slug) {
@@ -79,7 +78,7 @@ const RodsSlugPage = async ({ params }) => {
 					seriesTag={seriesTag}
 					ctaBanner={ctaBanner}
 				/>
-        <CallToAction variant='product' />
+				<CallToAction variant='product' />
 			</PageContainer>
 		);
 	}

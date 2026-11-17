@@ -32,6 +32,11 @@ const RodProductDetail = ({
 		images?.edges?.map((e) => e.node) ?? (featuredImage ? [featuredImage] : []);
 	const productVariants = variants?.edges?.map((e) => e.node) ?? [];
 
+	// In-stock rods are single-variant today. Prefer the first variant that's
+	// actually for sale so Add to cart never targets a sold-out one.
+	const defaultVariant =
+		productVariants.find((v) => v.availableForSale) ?? productVariants[0];
+
 	return (
 		<div className='pb-5 lg:pb-8.75'>
 			<div className='mt-1 lg:mt-2 section-x-padding grid lg:grid-cols-2 lg:gap-5.5 lg:items-start'>
@@ -49,12 +54,13 @@ const RodProductDetail = ({
 					</div>
 
 					<ProductSpecsAndCta
-	specs={specs}
-	seriesName={seriesInfo?.name ?? seriesTag}
-	shortDescription={shortDescription}
-	descriptionHtml={descriptionHtml}
-	availableForSale={availableForSale}
-/>
+						specs={specs}
+						seriesName={seriesInfo?.name ?? seriesTag}
+						shortDescription={shortDescription}
+						descriptionHtml={descriptionHtml}
+						availableForSale={availableForSale}
+						variantId={defaultVariant?.id}
+					/>
 				</div>
 
 				<div className='hidden lg:block lg:order-1 lg:sticky lg:top-[13vh] lg:self-start'>
@@ -75,9 +81,12 @@ const RodProductDetail = ({
 			)}
 
 			{testimonial && (
-	<SeriesTestimonial data={testimonial} seriesName={seriesInfo?.name ?? seriesTag} />
-)}
-{/* 
+				<SeriesTestimonial
+					data={testimonial}
+					seriesName={seriesInfo?.name ?? seriesTag}
+				/>
+			)}
+			{/* 
 			{ctaBanner && (
 				<div>
 					<h3>{ctaBanner.heading}</h3>

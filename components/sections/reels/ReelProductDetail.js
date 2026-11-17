@@ -21,6 +21,11 @@ const ReelProductDetail = ({ product, allReels = [] }) => {
 
 	const productVariants = variants?.edges?.map((e) => e.node) ?? [];
 
+	// Reels are single-variant today. Prefer the first variant that's
+	// actually for sale so Add to cart never targets a sold-out one.
+	const defaultVariant =
+		productVariants.find((v) => v.availableForSale) ?? productVariants[0];
+
 	return (
 		<div className=''>
 			<div className='mt-1 lg:mt-2 section-x-padding grid lg:grid-cols-2 lg:gap-5.5 lg:items-start'>
@@ -40,6 +45,7 @@ const ReelProductDetail = ({ product, allReels = [] }) => {
 						shortDescription={shortDescription}
 						descriptionHtml={descriptionHtml}
 						availableForSale={availableForSale}
+						variantId={defaultVariant?.id}
 					/>
 				</div>
 
