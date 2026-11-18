@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 18, 2026 (Phase 2 done)
+**Last updated:** Nov 18, 2026 (Phase 3 done in code)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -21,7 +21,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 0 | Planning, decisions, project reorg, old data export + map | none | Done | `handoffs/phase-00-planning.md` |
 | 1 | Quick fixes (6 small edits) | 0 | Done (form backend moved to Phase 8) | `handoffs/phase-01-quick-fixes.md` |
 | 2 | Cart | 1 | Done | `handoffs/phase-02-cart.md` |
-| 3 | CMS builder schemas | 0 | Not started | |
+| 3 | CMS builder schemas | 0 | Done in code (needs `sanity deploy` by Jordan) | `handoffs/phase-03-cms-schemas.md` |
 | 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Not started | |
 | 5 | Builder logic (queries, pricing, validation) | 4 | Not started | |
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Not started | |
@@ -111,6 +111,8 @@ Builder fields go **on `rodSeries`** in a new "Rod Builder" group, so one doc pe
 | 3.8 | Deploy | `sanity deploy` (Jordan) |
 
 **Done when:** studio deploys, all new types editable, `rodSeries` shows the Rod Builder group.
+
+**As built:** 3.1 to 3.7 done on branch `phase-03-cms-schemas`, schema validates clean. 3.8 is Jordan's. Sanity v6 needs Node 22.12 or newer. Field names for Phase 5 and details are in `handoffs/phase-03-cms-schemas.md`.
 
 ## Phase 4: Data migration (CMS repo)
 
