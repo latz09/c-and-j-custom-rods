@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 17, 2026 (Phase 1 done, docs moved into the repo)
+**Last updated:** Nov 18, 2026 (Phase 2 done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -20,7 +20,7 @@ Update the Status and Handoff columns at the end of every phase.
 |---|---|---|---|---|
 | 0 | Planning, decisions, project reorg, old data export + map | none | Done | `handoffs/phase-00-planning.md` |
 | 1 | Quick fixes (6 small edits) | 0 | Done (form backend moved to Phase 8) | `handoffs/phase-01-quick-fixes.md` |
-| 2 | Cart | 1 | Not started | |
+| 2 | Cart | 1 | Done | `handoffs/phase-02-cart.md` |
 | 3 | CMS builder schemas | 0 | Not started | |
 | 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Not started | |
 | 5 | Builder logic (queries, pricing, validation) | 4 | Not started | |
@@ -90,6 +90,8 @@ API 2026-07 discount fields only (`lines[].discountAllocations`, `sourceDiscount
 | 2.9 | Test | Bogus Gateway checkout end to end |
 
 **Done when:** rod, reel and apparel can be added, edited, removed and checked out with Bogus Gateway.
+
+**As built:** all steps done and tested. Extras: `lib/cart/cartHelpers.js` and `components/cart/CartButton.js`. The mobile nav is `components/modals/MobileNavbar.js`. `sourceDiscountApplication` not queried. Details in `handoffs/phase-02-cart.md`.
 
 ## Phase 3: CMS builder schemas (CMS repo)
 
