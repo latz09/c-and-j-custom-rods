@@ -20,7 +20,7 @@ Jordan is on Windows. The VS Code terminal is **Git Bash**: use forward-slash pa
 - CMS Sanity project: `vx4e4v7t`, dataset `production`.
 - Old v1 Sanity project (data source only, never write to it): `xov8qqkx`.
 - Old data exports: `/c/LatzWebDesign/INFO/Clients/Active/2026/c-and-j/cj-export/` (`cj-old-full.tar.gz` is used in Phase 4).
-- **Phases that touch the CMS (3, 4, 5):** if `../cms` isn't readable, ask Jordan to run `/add-dir ../cms`.
+- **Phases that touch the CMS (3, 4, 5):** the `../cms` repo and the `cj-export` folder are reachable through `.claude/settings.local.json` (the VS Code extension doesn't support `/add-dir`). If one isn't readable, ask Jordan to add it there.
 
 ## Build docs (`docs/build/`)
 
