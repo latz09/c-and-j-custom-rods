@@ -6,6 +6,8 @@ import { fetchSeoSettings } from '@/utils/cms/fetchSeoSettings';
 import { buildOrganizationSchema } from '@/lib/seo/buildOrganizationSchema';
 import JsonLd from '@/components/seo/JsonLd';
 import NavigationContainer from '@/components/layout/navigation/NavigationContainer';
+import { CartProvider } from '@/components/cart/CartProvider';
+import CartDrawer from '@/components/cart/CartDrawer';
 import './globals.css';
 import { Roboto_Condensed } from 'next/font/google';
 
@@ -72,10 +74,13 @@ export default async function RootLayout({ children }) {
 				className={`min-h-screen ${robotoCondensedHeading.variable} ${robotoCondensedBody.variable}`}
 			>
 				{schema && <JsonLd data={schema} />}
-				<NavigationContainer />
-				{children}
+				<CartProvider>
+					<NavigationContainer />
+					{children}
+					<Footer businessName={seo?.siteName} />
+					<CartDrawer />
+				</CartProvider>
 				<Analytics />
-				<Footer businessName={seo?.siteName} />
 				
 				{/* {(await draftMode()).isEnabled && <VisualEditingClient />} */}
 			</body>
