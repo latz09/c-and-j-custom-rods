@@ -32,7 +32,12 @@ export const CART_FRAGMENT = `
             availableForSale
             selectedOptions { name value }
             image { url altText width height }
-            product { handle title tags }
+            product {
+              handle
+              title
+              tags
+              collections(first: 10) { nodes { handle } }
+            }
           }
         }
       }
