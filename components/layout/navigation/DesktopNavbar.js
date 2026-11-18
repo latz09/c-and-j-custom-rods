@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { track } from '@vercel/analytics';
 import Logo from '@/components/lib/Logo';
+import CartButton from '@/components/cart/CartButton';
 
 const DARK_NAV_ROUTES = ['/about'];
 
@@ -55,6 +56,7 @@ const DesktopNavbar = ({ navLinks, logoUrl }) => {
 							{contactLink.label}
 						</Link>
 					)}
+					<CartButton isDark={isDark} />
 				</nav>
 			</div>
 		</div>

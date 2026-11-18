@@ -9,6 +9,7 @@ import Link from 'next/link';
 import MenuIcon from '../layout/navigation/MenuIcon';
 import Logo from '../lib/Logo';
 import { Arrow } from '@/components/ui/ButtonLink';
+import CartButton from '@/components/cart/CartButton';
 
 const DARK_NAV_ROUTES = ['/about'];
 const EASE = [0.25, 0.46, 0.45, 0.94]; // same signature as StickyNav — one motion language, not two
@@ -89,11 +90,14 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 						className='w-[12rem]'
 						variant={isDark ? 'verticalWhite' : 'vertical'}
 					/>
-					<MenuIcon
-						isNavOpen={isNavOpen}
-						toggleNav={toggleNav}
-						variant={isNavOpen ? 'dark' : isDark ? 'light' : 'dark'}
-					/>
+					<div className='flex items-center gap-0.5'>
+						<CartButton isDark={isDark} />
+						<MenuIcon
+							isNavOpen={isNavOpen}
+							toggleNav={toggleNav}
+							variant={isNavOpen ? 'dark' : isDark ? 'light' : 'dark'}
+						/>
+					</div>
 				</header>
 			</div>
 

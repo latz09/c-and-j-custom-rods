@@ -81,7 +81,7 @@ export default function CartDrawer() {
 						{groups.length > 0 && (
 							<footer className='px-1.25 py-1 border-t border-dark/10'>
 								{error && (
-									<p role='alert' className='mb-0.5 text-paragraph-sm'>
+									<p role='alert' className='mb-0.5 text-paragraph'>
 										{error}
 									</p>
 								)}
@@ -89,7 +89,7 @@ export default function CartDrawer() {
 									<span>Subtotal</span>
 									<span>{formatMoney(cart?.cost?.subtotalAmount)}</span>
 								</div>
-								<p className='mb-1 text-paragraph-sm'>
+								<p className='mb-1 text-paragraph'>
 									Shipping and taxes calculated at checkout.
 								</p>
 								<a

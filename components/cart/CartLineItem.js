@@ -47,19 +47,19 @@ export default function CartLineItem({ line }) {
 				)}
 
 				{options.length > 0 && (
-					<p className='text-paragraph-sm'>
+					<p className='text-paragraph'>
 						{options.map((o) => o.value).join(' / ')}
 					</p>
 				)}
 
 				{attributes.map((a) => (
-					<p key={a.key} className='text-paragraph-sm'>
+					<p key={a.key} className='text-paragraph'>
 						{a.key}: {a.value}
 					</p>
 				))}
 
 				{discounts.map((d, i) => (
-					<p key={i} className='text-paragraph-sm'>
+					<p key={i} className='text-paragraph'>
 						{d.title || d.code || 'Discount'}: -{formatMoney(d.discountedAmount)}
 					</p>
 				))}
@@ -94,7 +94,7 @@ export default function CartLineItem({ line }) {
 					type='button'
 					disabled={isPending}
 					onClick={() => removeLines([line.id])}
-					className='mt-0.5 text-paragraph-sm underline disabled:opacity-50'
+					className='mt-0.5 text-paragraph underline disabled:opacity-50'
 				>
 					Remove
 				</button>
