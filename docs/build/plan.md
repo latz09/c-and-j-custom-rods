@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 18, 2026 (Phase 3 done in code)
+**Last updated:** Nov 19, 2026 (Phase 4 done in Sanity)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -22,7 +22,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 1 | Quick fixes (6 small edits) | 0 | Done (form backend moved to Phase 8) | `handoffs/phase-01-quick-fixes.md` |
 | 2 | Cart | 1 | Done | `handoffs/phase-02-cart.md` |
 | 3 | CMS builder schemas | 0 | Done in code (needs `sanity deploy` by Jordan) | `handoffs/phase-03-cms-schemas.md` |
-| 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Not started | |
+| 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Done in Sanity (Jordan: Studio checks, `sanity deploy`, manual content) | `handoffs/phase-04-data-migration.md` |
 | 5 | Builder logic (queries, pricing, validation) | 4 | Not started | |
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Not started | |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Not started | |
@@ -131,6 +131,8 @@ Needs: `cj-old-full.tar.gz` extracted (Claude Code can extract it from the expor
 
 **Done when:** every series, blank, thread, grip and application exists in the new studio with photos, and nothing else from the old project came across.
 
+**As built:** 105 docs imported (63 threads, 14 blanks, 28 grips) after a backup, then series patched, pricing rules written and card blurbs drafted by `scripts/migrate-builder-data.mjs` in the CMS repo. Blank hex sampled from photos (Seafoam and Titanium Chrome guessed). Thread categories are a fitted guess (35 / 23 / 5). Grip names are "Cork Split 1, 2, 3" style, with old descriptions used for three. Deviations: Bass Casting, Musky Casting and Musky Spinning were created as hidden series to hold their 21 applications (42 total across 6 open water series), and a new `rodSeries.inStockStatus` field (live / comingSoon / hidden, separate from `builderStatus`) now drives the In-Stock Rods pages, with coming-soon cards and 404s for hidden series. Revisit with `HIDE_EMPTY_STOCK_MESSAGING` in Phase 8. Details in `handoffs/phase-04-data-migration.md`.
+
 ## Phase 5: Builder logic (frontend, shared)
 
 Same pricing function runs in the browser (live total) and on the server (what gets charged).
@@ -237,7 +239,7 @@ First pass in 6A and 6B maps data with structure only; Jordan applies classnames
 2. Ice Reaper base price
 3. Hole Hog base price: old CMS has $119; mocks show $119 and $119.99. Confirm $119
 4. **Blank colors per series:** confirm the Aug changelog lists replace what's live now (table in `docs/build/old-cms-data-map.md`), and that "Pink / Green / Orange / Blue" mean Hot Pink / Neon Green / Neon Orange / Metallic Blue
-5. **Grip finish names:** the old CMS only has IDs like `cork-split-7`. Names for all 28 (13 ice, 15 open water), or OK to show "Cork Split 1, 2, 3"?
+5. **Grip finish names:** the old CMS only has IDs like `cork-split-7`. Names for all 28 (13 ice, 15 open water). Currently "Cork Split 1, 2, 3" style in Sanity, with old descriptions for three ice cork split grips
 6. Seafoam + Titanium Chrome photos
 7. Bass Casting, Musky Casting, Musky Spinning: relaunch or keep hidden?
 8. Sticker: max characters, and any font or color choice?
