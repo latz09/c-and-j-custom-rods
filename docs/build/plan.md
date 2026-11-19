@@ -26,6 +26,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 5 | Builder logic (queries, pricing, validation) | 4 | Done | `handoffs/phase-05-builder-logic.md` |
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Done (unstyled, Jordan applies classnames) | `handoffs/phase-06a-builder-ui.md` |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Done (unstyled, cart call stubbed) | `handoffs/phase-06b-builder-summary.md` |
+| 6C | Builder styling: approximate first pass of landing and builder to Alyssa's screens, existing tokens and rod card patterns, basic mobile | 6B | In progress | |
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Not started | |
 | 8 | Finish-up, cleanup, launch | 7 | Not started | |
 
@@ -192,6 +193,15 @@ First pass in 6A and 6B maps data with structure only; Jordan applies classnames
 **Done when:** desktop and mobile builder is complete apart from the actual cart call.
 
 **As built:** all three steps done on `phase-06b-builder-summary`, structure only. Added `BuildTotal.js`, shared by the card and the bar. Until Phase 7 the total line reads "Options: +$X (base price coming)", never "Total" (remove that branch in Phase 7). The button shows once per breakpoint (card on desktop, bar on mobile) and logs the validated config. `BuilderShell` no longer has the debug config. Details in `handoffs/phase-06b-builder-summary.md`.
+
+## Phase 6C: Builder styling (approximate first pass)
+
+Goal: layout and sections match the three screenshots, not pixel-perfect. Jordan fine-tunes.
+
+- Landing: hero panel, tabs and series cards based on the in-stock rod cards (`RodCard`, `RodsBySeriesSection`), so cards stay consistent site-wide.
+- Builder: two columns on desktop (rod image + Your Build left, options right), stacked on mobile with the sticky bottom bar.
+- Existing Tailwind tokens and typography classes only. No new colors or fonts.
+- Not touched: cart drawer (waits until after Phase 7), builder logic, data.
 
 ## Phase 7: Checkout wiring
 
