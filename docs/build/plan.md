@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 19, 2026 (Phase 5 done)
+**Last updated:** Nov 19, 2026 (Phase 6A done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -24,7 +24,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 3 | CMS builder schemas | 0 | Done in code (needs `sanity deploy` by Jordan) | `handoffs/phase-03-cms-schemas.md` |
 | 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Done in Sanity (Jordan: Studio checks, `sanity deploy`, manual content) | `handoffs/phase-04-data-migration.md` |
 | 5 | Builder logic (queries, pricing, validation) | 4 | Done | `handoffs/phase-05-builder-logic.md` |
-| 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Not started | |
+| 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Done (unstyled, Jordan applies classnames) | `handoffs/phase-06a-builder-ui.md` |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Not started | |
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Not started | |
 | 8 | Finish-up, cleanup, launch | 7 | Not started | |
@@ -176,6 +176,8 @@ Folder: `components/sections/rod-builder/`
 | 6.12 | `StickerInput.js` | Optional personalized text (+$10), max length from CMS, blank = none |
 
 **Done when:** landing works for both tabs, and every option for an ice and an open water series can be picked with the live total updating.
+
+**As built:** all steps done on `phase-06a-builder-ui` and tested by Jordan. Structure and data only. Decisions: fixed series photo (no swap on blank), plain series name as title, coming-soon cards have no link, single-column stacking. "Starting at" hides until Shopify has the base price (Phase 7). Left column holds a placeholder total and config dump (`SHOW_DEBUG_CONFIG`) that 6B replaces. Added `formatPrice.js`. Details in `handoffs/phase-06a-builder-ui.md`.
 
 ## Phase 6B: Builder UI, part 2
 
