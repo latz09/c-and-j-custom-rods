@@ -24,7 +24,7 @@ export const FETCH_IN_STOCK_RODS_PAGE_QUERY = `{
       noIndex
     }
   },
-  "series": *[_type == "rodSeries"] | order(order asc){
+  "series": *[_type == "rodSeries" && builderStatus != "hidden"] | order(order asc){
     _id,
     name,
     slug,
