@@ -3,7 +3,7 @@ import SanityImage from '@/components/ui/SanityImage'
 
 const WATER_TYPE_BADGE = { ice: 'Ice fishing', 'open-water': 'Open water' }
 
-const formatPrice = (n) => `$${Number.isInteger(n) ? n : n.toFixed(2)}`
+import { formatPrice } from './formatPrice'
 
 const SeriesCard = ({ series, comingSoonLabel }) => {
   const { name, slug, applicationType, builderStatus, builderCardBlurb, image, startingPrice } = series
