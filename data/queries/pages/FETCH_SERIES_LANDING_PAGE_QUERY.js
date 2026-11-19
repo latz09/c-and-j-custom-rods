@@ -4,8 +4,10 @@
 // Storefront API separately using:
 //   query: "tag:'" + applicationType + "' AND tag:'" + slug + "'"
 // There is no Shopify collection for a series — tags only, no collection(handle:) lookup.
+// Series with inStockStatus hidden or comingSoon return null (the page 404s). An empty
+// inStockStatus counts as live.
 
-export const FETCH_SERIES_LANDING_PAGE_QUERY = `*[_type == "rodSeries" && slug == $slug][0]{
+export const FETCH_SERIES_LANDING_PAGE_QUERY = `*[_type == "rodSeries" && slug == $slug && !(inStockStatus in ["hidden", "comingSoon"])][0]{
   name,
   slug,
   applicationType,

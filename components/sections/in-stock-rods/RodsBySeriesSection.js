@@ -64,7 +64,16 @@ function SeriesCard({ series: s, index }) {
 
 	const price = startingPrice(s.products);
 	const hasStock = s.products.some((p) => p.availableForSale);
-	const isComingSoon = !HIDE_EMPTY_STOCK_MESSAGING && s.products.length === 0;
+	// CMS "Coming soon" status: label and no link. Separate from the temporary
+	// empty-catalog inference below.
+	const isSeriesComingSoon = s.inStockStatus === 'comingSoon';
+	const isComingSoon =
+		isSeriesComingSoon ||
+		(!HIDE_EMPTY_STOCK_MESSAGING && s.products.length === 0);
+	const Wrapper = isSeriesComingSoon ? 'div' : Link;
+	const wrapperProps = isSeriesComingSoon
+		? { className: 'group' }
+		: { href: `/shop/rods/${s.slug}`, className: 'group' };
 
 	let ctaLabel = `Shop ${s.name}`;
 	if (isComingSoon) ctaLabel = 'Coming soon';
@@ -75,7 +84,7 @@ function SeriesCard({ series: s, index }) {
 			className='bg-gradient-to-b from-light via-accent/0 to-accent/60 p-2 border border-[#D2D2D2] rounded animate-[fade-in-up_0.4s_ease-out_backwards]'
 			style={{ animationDelay: `${index * 60}ms` }}
 		>
-			<Link href={`/shop/rods/${s.slug}`} className='group'>
+			<Wrapper {...wrapperProps}>
 				<div className='flex flex-col items-end gap-0.5'>
 					<span
 						className={`rounded-full px-0.75 py-0.25 text-paragraph-sm font-[700] leading-[140%] text-dark ${
@@ -108,11 +117,13 @@ function SeriesCard({ series: s, index }) {
 				</div>
 
 				<h4>{s.name}</h4>
-				<p className='mt-0.75 lg:mt-1 mb-1 lg:mb-1.5 text-paragraph-lg'>
-					{price != null
-						? `Starting at $${price.toFixed(2)}`
-						: 'Starting at $229.99'}
-				</p>
+				{!isSeriesComingSoon && (
+					<p className='mt-0.75 lg:mt-1 mb-1 lg:mb-1.5 text-paragraph-lg'>
+						{price != null
+							? `Starting at $${price.toFixed(2)}`
+							: 'Starting at $229.99'}
+					</p>
+				)}
 
 				<span
 					className={`text-button inline-flex items-center justify-center rounded-sm transition-all duration-500 py-0.75
@@ -131,7 +142,7 @@ function SeriesCard({ series: s, index }) {
 						<Arrow />
 					</span>
 				</span>
-			</Link>
+			</Wrapper>
 		</div>
 	);
 }
