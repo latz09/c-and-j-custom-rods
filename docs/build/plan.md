@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 19, 2026 (Phase 6B done)
+**Last updated:** Nov 19, 2026 (Phase 6C done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -26,7 +26,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 5 | Builder logic (queries, pricing, validation) | 4 | Done | `handoffs/phase-05-builder-logic.md` |
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Done (unstyled, Jordan applies classnames) | `handoffs/phase-06a-builder-ui.md` |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Done (unstyled, cart call stubbed) | `handoffs/phase-06b-builder-summary.md` |
-| 6C | Builder styling: approximate first pass of landing and builder to Alyssa's screens, existing tokens and rod card patterns, basic mobile | 6B | In progress | |
+| 6C | Builder styling: approximate first pass of landing and builder to Alyssa's screens, existing tokens and rod card patterns, basic mobile | 6B | Done (approximate, needs Jordan's browser pass) | `handoffs/phase-06c-builder-styling.md` |
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Not started | |
 | 8 | Finish-up, cleanup, launch | 7 | Not started | |
 
