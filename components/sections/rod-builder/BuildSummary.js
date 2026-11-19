@@ -36,17 +36,17 @@ const BuildSummary = ({ config, catalog, price, hasBasePrice, action }) => {
   )
 
   return (
-    <div>
-      <h2>Your Build</h2>
+    <div className="mt-1 rounded bg-accent/30 p-1.25">
+      <h5 className="mb-0.75">Your Build</h5>
       <dl>
         {rows.map((r) => (
-          <div key={r.label}>
-            <dt>{r.label}</dt>
-            <dd>{r.value}</dd>
+          <div key={r.label} className="flex justify-between gap-1 border-b border-dark/20 py-0.5">
+            <dt className="text-paragraph">{r.label}</dt>
+            <dd className="text-paragraph font-[700] text-right">{r.value}</dd>
           </div>
         ))}
       </dl>
-      <BuildTotal price={price} hasBasePrice={hasBasePrice} />
+      <BuildTotal price={price} hasBasePrice={hasBasePrice} className="py-0.75" />
       {action}
     </div>
   )

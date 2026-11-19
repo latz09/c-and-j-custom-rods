@@ -1,11 +1,12 @@
 import SanityImage from '@/components/ui/SanityImage'
+import { tileClasses } from './optionClasses'
 
 const BLANK_IMAGE_SIZE = { width: 160, height: 160, quality: 85, format: 'webp', fit: 'max' }
 
 // Real blank photo with the swatch and name under it. Swatch only when there is no photo
 // (Seafoam and Titanium Chrome for now).
 const BlankColorSelect = ({ blanks = [], value, onChange }) => (
-  <div role="radiogroup">
+  <div role="radiogroup" className="flex flex-wrap gap-0.75">
     {blanks.filter(Boolean).map((blank) => {
       const selected = value === blank._id
       return (
@@ -16,12 +17,23 @@ const BlankColorSelect = ({ blanks = [], value, onChange }) => (
           aria-checked={selected}
           data-selected={selected}
           onClick={() => onChange(blank._id)}
+          className={`flex w-7.5 flex-col items-center gap-0.5 ${tileClasses(selected)}`}
         >
           {blank.image?.asset && (
-            <SanityImage image={blank.image} alt={blank.name} customSize={BLANK_IMAGE_SIZE} sizes="160px" />
+            <SanityImage
+              image={blank.image}
+              alt={blank.name}
+              customSize={BLANK_IMAGE_SIZE}
+              sizes="160px"
+              className="h-auto w-full rounded-sm"
+            />
           )}
-          <span aria-hidden="true" style={{ backgroundColor: blank.hex }} />
-          <span>{blank.name}</span>
+          <span
+            aria-hidden="true"
+            className="block h-1 w-full rounded-sm border border-dark/20"
+            style={{ backgroundColor: blank.hex }}
+          />
+          <span className={`text-caption ${selected ? 'font-[700]' : ''}`}>{blank.name}</span>
         </button>
       )
     })}

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import SanityImage from '@/components/ui/SanityImage'
 import { getGripPrice } from '@/lib/builder/pricing'
 import { formatPrice } from './formatPrice'
+import { chipClasses, tileClasses } from './optionClasses'
 
 const GRIP_IMAGE_SIZE = { width: 200, height: 200, quality: 85, format: 'webp', fit: 'max' }
 const MATERIAL_LABELS = { cork: 'Cork', eva: 'EVA Foam' }
@@ -40,8 +41,10 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
   }
 
   return (
-    <div>
-      <div role="radiogroup" aria-label="Grip material">
+    <div className="space-y-1">
+      <div>
+      <p className="text-paragraph font-[700] mb-0.5">Grip material</p>
+      <div role="radiogroup" aria-label="Grip material" className="flex flex-wrap gap-0.5">
         {materials.map((m) => (
           <button
             key={m}
@@ -50,14 +53,18 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
             aria-checked={material === m}
             data-selected={material === m}
             onClick={() => pickMaterial(m)}
+            className={chipClasses(material === m)}
           >
             {MATERIAL_LABELS[m] ?? m}
           </button>
         ))}
       </div>
+      </div>
 
       {material && (
-        <div role="radiogroup" aria-label="Grip style">
+        <div>
+        <p className="text-paragraph font-[700] mb-0.5">Grip style</p>
+        <div role="radiogroup" aria-label="Grip style" className="flex flex-wrap gap-0.5">
           {styles.map((s) => {
             const price = getGripPrice({ material, style: s }, waterType, rules)
             return (
@@ -68,16 +75,18 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
                 aria-checked={style === s}
                 data-selected={style === s}
                 onClick={() => pickStyle(s)}
+                className={chipClasses(style === s)}
               >
                 {STYLE_LABELS[s] ?? s} {price > 0 && `+${formatPrice(price)}`}
               </button>
             )
           })}
         </div>
+        </div>
       )}
 
       {material && style && (
-        <div role="radiogroup" aria-label="Grip finish">
+        <div role="radiogroup" aria-label="Grip finish" className="grid grid-cols-2 gap-0.75 sm:grid-cols-4">
           {finishes.map((g) => (
             <button
               key={g._id}
@@ -86,9 +95,10 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
               aria-checked={value === g._id}
               data-selected={value === g._id}
               onClick={() => onChange(g._id)}
+              className={`flex flex-col items-center gap-0.5 ${tileClasses(value === g._id)}`}
             >
-              <SanityImage image={g.image} alt={g.finishName || ''} customSize={GRIP_IMAGE_SIZE} sizes="200px" />
-              <span>{g.finishName}</span>
+              <SanityImage image={g.image} alt={g.finishName || ''} customSize={GRIP_IMAGE_SIZE} sizes="200px" className="h-auto w-full rounded-sm" />
+              <span className={`text-caption ${value === g._id ? 'font-[700]' : ''}`}>{g.finishName}</span>
             </button>
           ))}
         </div>

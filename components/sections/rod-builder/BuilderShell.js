@@ -66,14 +66,16 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
   )
 
   return (
-    <div className="pb-24 lg:pb-0">
-      <div>
-        <div className="relative">
+    <div className="section-x-padding mt-1 lg:mt-2 pb-24 lg:pb-5 grid gap-1.5 lg:grid-cols-5 lg:gap-2.5">
+      <div className="lg:col-span-2 lg:self-start lg:sticky lg:top-1.5">
+        <div className="relative overflow-hidden rounded border border-accent bg-gradient-to-b from-light via-accent/0 to-accent/60 p-2">
           <SanityImage
             image={catalog.image}
             alt={catalog.name}
-            preset="rodSeriesCard"
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            preset="rodSeriesHero"
+            objectFit="contain"
+            className="mx-auto h-auto w-full max-w-[22rem] lg:max-w-none"
+            sizes="(min-width: 1024px) 40vw, 100vw"
           />
         </div>
         {/* Desktop button lives in the card; mobile uses MobileBuildBar */}
@@ -86,7 +88,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
         />
       </div>
 
-      <div>
+      <div className="lg:col-span-3">
         <BuilderBreadcrumb seriesName={catalog.name} applicationType={catalog.applicationType} />
         <BuilderHeader name={catalog.name} basePrice={basePrice} />
 
@@ -134,7 +136,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
           <StickerInput value={config.stickerText} onChange={set('stickerText')} maxLength={stickerMax} />
         </BuilderSection>
 
-        {copy?.leadTimeNote && <p>{copy.leadTimeNote}</p>}
+        {copy?.leadTimeNote && <p className="mt-2 text-caption">{copy.leadTimeNote}</p>}
       </div>
 
       <MobileBuildBar price={price} hasBasePrice={hasBasePrice} action={cartButton} />
