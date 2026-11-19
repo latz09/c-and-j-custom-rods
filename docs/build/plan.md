@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 19, 2026 (Phase 4 done in Sanity)
+**Last updated:** Nov 19, 2026 (Phase 5 done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -23,7 +23,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 2 | Cart | 1 | Done | `handoffs/phase-02-cart.md` |
 | 3 | CMS builder schemas | 0 | Done in code (needs `sanity deploy` by Jordan) | `handoffs/phase-03-cms-schemas.md` |
 | 4 | Data migration into new Sanity | 3 + `cj-old-full.tar.gz` | Done in Sanity (Jordan: Studio checks, `sanity deploy`, manual content) | `handoffs/phase-04-data-migration.md` |
-| 5 | Builder logic (queries, pricing, validation) | 4 | Not started | |
+| 5 | Builder logic (queries, pricing, validation) | 4 | Done | `handoffs/phase-05-builder-logic.md` |
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Not started | |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Not started | |
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Not started | |
@@ -147,6 +147,8 @@ Same pricing function runs in the browser (live total) and on the server (what g
 | 5.6 | `utils/shopify/getBuilderProducts.js` | Fetch `Custom Rod Build` variants (base prices) and `Build Options` variants |
 
 **Done when:** queries return real migrated data and pricing reproduces the open water mock total ($459.99 for the Musky Casting example) and computes the ice mock correctly ($144.99; the mock's $119.99 is a placeholder).
+
+**As built:** all six steps done on `phase-05-builder-logic`, checked by `scripts/check-builder.mjs` against the live dataset (30 of 30). Deviations: `getBuildPrice` takes `basePrice` as a fourth argument, the series query also returns builder copy and pricing rules, and the validator enforces that add-ons are a multiple of $5 up to $90. `Custom Rod Build` variant SKUs must equal the series slug (Phase 7). Sticker max defaults to 20 in code. `getBuilderProducts` is untested against real Shopify until Phase 7. Details in `handoffs/phase-05-builder-logic.md`.
 
 ## Phase 6A: Builder UI, part 1 (per `docs/build/design-notes.md`)
 
