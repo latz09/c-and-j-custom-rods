@@ -9,6 +9,7 @@
 
 Design reference for the builder UI: `docs/build/design-notes.md` + `docs/build/design/` (all three of Alyssa's screens).
 Old v1 CMS structure and migration mapping: `docs/build/old-cms-data-map.md` (required reading for Phases 3 and 4).
+Everything the Sept 2 client meeting left open (shipping, free shipping threshold, promotions, cart upsells): `docs/build/open-items.md` (required reading for Phases 8B-3, 9 and 10).
 
 ---
 
@@ -32,8 +33,10 @@ Update the Status and Handoff columns at the end of every phase.
 | 8B-1 | Contact form backend | 8A | Done (tested by Jordan) | `handoffs/phase-08b-1-contact-form.md` |
 | 8B-2 | Docs: architecture doc, Jordan and Chris guides, CMS guide | 8B-1 | Done (markdown; CMS guide PDF and `cmsGuideUrl` are Jordan's) | `handoffs/phase-08b-2-docs.md` |
 | 8B-3 | Launch: Shopify tax and shipping, reel toggles, launch checklist, analytics events | 8B-2 | Not started | |
+| 9 | Promotions (automated collections + Sanity promo + popup) and the free shipping bar | 8B-3 + client answers | Not started, see `open-items.md` | |
+| 10 | Cart upsells A and B | 9, and only if sold | Not started, see `open-items.md` | |
 
-Phase 3 can run before or alongside 2 if that's more convenient. Everything else is in order.
+Phase 3 can run before or alongside 2 if that's more convenient. Everything else is in order. Phases 9 and 10 are post-launch and both wait on answers from Chris, so launch does not wait on them.
 
 **Between phases:** Jordan pushes the phase branch, checks the Vercel preview, and merges into `master` (and `main` in the CMS repo). The next session starts from the merged branch. The handoff records branch names and commit hashes.
 
@@ -254,14 +257,17 @@ Split into three sessions: **8B-1** contact form (done; as built the route staye
 **Shopify / data**
 - Rest of rod catalog loaded. The old CMS has 57 in-stock listings (46 ice, 11 open water) with descriptions and 178 photos in the export, a possible source if Chris wants them carried over
 - Confirm reel metafield Storefront toggles (Bearings, Gear Ratio, Weight, Max Drag)
-- Shipping: Shippo vs. Shopify native comparison still owed
-- Research and set up tax collection and shipping rates in Shopify (custom builds, in-stock rods, mixed carts). Shipping on a build comes from the Custom Rod Build line only. Record answers in `how-to-notes.md`
+- Shipping: comparison done, see `open-items.md` item 1. **Decided: Shopify native rates at checkout, C&J keeps Shippo for labels.** Live carrier rates at checkout need Advanced or Grow annual, so they are out on Basic
+- Set up shipping rates in Shopify per that decision: real weights on every Custom Rod Build variant and every physical product, a rate that works for one rod and for two, and a mixed cart test (build + reel + apparel). Shipping comes off the Custom Rod Build line only, Build Options is not physical
+- Research and set up tax collection (which states, what is taxable, custom builds vs in-stock). Record answers in `how-to-notes.md` **and** in both guides
 - Contact Page business info: phone, location, hours once Chris sends them
 
-**Waiting on client**
+**Waiting on client** (full detail and the questions to ask are in `open-items.md`)
 - Hero image options, more reviews (one per series)
-- Promotions direction (context in the Sept 2 consolidated handoff, claude.ai Project)
-- Upsell Feature A / B quote still owed
+- Seafoam and Titanium Chrome blank photos. Both swatch hexes in Sanity are guesses until these arrive
+- Promotions: how granular, and how often. The second answer decides whether Phase 9 gets built at all
+- Free shipping threshold: the dollar number, after shipping rates are set
+- Upsell A / B quote: priced at $450 / $1,200 / $1,500 for both, not yet sent
 
 **Launch**
 - Store transfer, plan selected, real payments on
@@ -269,6 +275,32 @@ Split into three sessions: **8B-1** contact form (done; as built the route staye
 - Confirm `middleware.js` noindex only hits preview hosts
 - Full test pass incl. mobile
 - Vercel analytics events on builder steps + add-to-cart
+
+## Phase 9: Promotions and the free shipping bar (post-launch)
+
+Read `docs/build/open-items.md` items 2 and 3 first. **Do not start until Chris has answered how often he expects to run promos.** A couple a year means there is nothing to build: Jordan sets up a discount and a one-off popup by hand.
+
+| # | File / step | Purpose |
+|---|---|---|
+| 9.1 | Shopify admin (Jordan) | Automated collections: Ice Rods (tag `ice`), Open Water Rods (tag `open-water`), one per series only if Chris wants single-series promos. Publish each to the Cj Custom Rods Headless channel |
+| 9.2 | CMS: `schemaTypes/promotion.js` | Headline, body, optional image, CTA label and link, start and end dates, active toggle, and a required field naming the matching Shopify discount |
+| 9.3 | `data/queries/FETCH_ACTIVE_PROMOTION_QUERY.js` | The one active promo, filtered on dates |
+| 9.4 | `components/promotions/PromoPopup.js` | Shown once per visitor per promo (localStorage on the promo id), dismissible, never on checkout |
+| 9.5 | CMS: free shipping threshold field | One number on a settings doc. Must match the Shopify free shipping rate's minimum, or the cart lies |
+| 9.6 | `components/cart/` free shipping bar | Compares cart subtotal to the threshold. The cart cannot see real shipping rates, so this is a plain comparison |
+| 9.7 | Shopify admin (Jordan) | Free shipping rate with a minimum order price condition, sitewide |
+| 9.8 | Guides | Both halves of the threshold change together. The Shopify discount is created before the Sanity promo. Into `guide-chris.md` |
+
+**Done when:** an automatic discount on the Ice Rods collection shows up in the cart totals, the popup announces it, and the free shipping bar matches what checkout actually charges.
+
+Use **automatic** discounts, not codes. Automatic ones already flow through `lines[].discountAllocations`, which the cart queries. A code would need `cartDiscountCodesUpdate` and a code field in the cart, neither of which is built.
+
+## Phase 10: Cart upsells (only if sold)
+
+Read `docs/build/open-items.md` item 4. Quoted at $450 for A, $1,200 for B, $1,500 for both. Nothing starts until they buy.
+
+- **A, apparel in the cart drawer:** two or three apparel products, add in one tap. Rides on existing cart plumbing, no new data relationship.
+- **B, series reel cross-sell:** needs a product-reference metafield on in-stock rod products **and** the same metafield at variant level on each `Custom Rod Build` variant, since that is where the series lives for a custom build. Cart-side detection has two paths: in-stock rods by product tag, builds by variant SKU or the Series line attribute. Decide what happens when the cart holds rods from more than one series.
 
 ---
 
@@ -287,6 +319,8 @@ Split into three sessions: **8B-1** contact form (done; as built the route staye
 11. Returns policy on custom builds
 12. Carry over the old in-stock rod listings into Shopify, or start fresh?
 13. Contact page: phone number, location (city, state) and hours to show. Email on file is `candjcustomrods@gmail.com`; the mock's support@ address, 123-456-7890, Waupaca and 8am - 4pm are placeholders
+
+Not builder questions, but outstanding from the Sept 2 meeting and listed in full at the end of `docs/build/open-items.md`: Shippo cost and real shipping costs, the free shipping threshold number, promo granularity, promo frequency, and yes or no on the cart upsells.
 
 ## Open questions for Alyssa
 

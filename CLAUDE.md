@@ -31,6 +31,7 @@ Jordan is on Windows. The VS Code terminal is **Git Bash**: use forward-slash pa
 | `design-notes.md` | Text version of Alyssa's three builder screens |
 | `design/` | The three screenshots (landing, ice builder, open water builder) |
 | `old-cms-data-map.md` | Old v1 CMS structure, field mapping, findings, Phase 4 import approach |
+| `open-items.md` | Everything the Sept 2 client meeting left open: shipping, free shipping threshold, promotions, cart upsells. State, decision and which phase implements it. Required reading for Phases 8B-3, 9 and 10 |
 
 Older reference docs stay in the claude.ai Project "C & J Custom Rods" (frozen): `architecture-schemas-queries-pageRoutes.md`, `shopify-headless-nextjs-build-reference.md`, the Sept 2 consolidated handoff, `iceRodOptions.html`, `openWaterRodOptions.html`, proposal, wireframe. If one is needed, ask Jordan to paste it.
 
