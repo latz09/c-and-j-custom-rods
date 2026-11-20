@@ -32,7 +32,7 @@ const Contact = async () => {
 						<ContactBusinessInfo data={businessInfo} />
 					</div>
 
-					<ContactFormPlaceholder email={businessInfo?.email} />
+					<ContactFormPlaceholder />
 				</div>
 			</section>
 		</PageContainer>

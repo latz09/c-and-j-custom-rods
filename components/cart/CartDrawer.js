@@ -19,11 +19,16 @@ export default function CartDrawer() {
 		if (!isOpen) return;
 		const onKey = (e) => e.key === 'Escape' && closeCart();
 		document.addEventListener('keydown', onKey);
-		const prev = document.body.style.overflow;
+		// html is the page scroller here (it carries overflow-x hidden), so lock both.
+		const html = document.documentElement;
+		const prevBody = document.body.style.overflow;
+		const prevHtml = html.style.overflow;
 		document.body.style.overflow = 'hidden';
+		html.style.overflow = 'hidden';
 		return () => {
 			document.removeEventListener('keydown', onKey);
-			document.body.style.overflow = prev;
+			document.body.style.overflow = prevBody;
+			html.style.overflow = prevHtml;
 		};
 	}, [isOpen, closeCart]);
 
@@ -33,7 +38,7 @@ export default function CartDrawer() {
 				<>
 					<motion.div
 						key='cart-overlay'
-						className='fixed inset-0 bg-dark/50 z-[9998]'
+						className='fixed inset-0 bg-dark/50 z-[1000000]'
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -46,7 +51,7 @@ export default function CartDrawer() {
 						role='dialog'
 						aria-modal='true'
 						aria-label='Shopping cart'
-						className='fixed top-0 right-0 h-full w-full max-w-[28rem] bg-white z-[9999] flex flex-col'
+						className='fixed top-0 right-0 h-full w-full max-w-[28rem] bg-white z-[1000001] flex flex-col'
 						initial={{ x: '100%' }}
 						animate={{ x: '0%' }}
 						exit={{ x: '100%' }}
@@ -64,7 +69,7 @@ export default function CartDrawer() {
 							</button>
 						</header>
 
-						<div className='flex-1 overflow-y-auto px-1.25'>
+						<div className='flex-1 overflow-y-auto overscroll-contain px-1.25'>
 							{groups.length === 0 ? (
 								<div className='py-2 flex flex-col items-start gap-0.75'>
 									<p className='text-paragraph'>Your cart is empty.</p>

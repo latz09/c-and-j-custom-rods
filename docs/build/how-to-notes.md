@@ -110,7 +110,7 @@ Jordan will send you a link to a preview of the new site. It is a work in progre
 - **Checkout:** press Checkout in the cart. It is a test checkout, so use the **Bogus Gateway**. Card number **1** (just the digit 1), any name, any future expiry date, any 3 digit security code. That completes a fake order. Try it with a custom rod, an in-stock rod, a reel and a shirt in the same cart.
 
 ### What is not done yet (on purpose)
-- **Contact form:** the Contact page shows the email address and a "form coming soon" card. Email works, the form does not yet.
+- **Contact form:** the Contact page has a "form coming soon" card. The email address is listed in the business info beside it.
 - **Ice Reaper:** shows as Coming Soon in the builder until the price and photos are final.
 - **In-stock rods:** only a few rods are loaded so far. Open water in-stock series are empty and hidden for now.
 - **Real payments, shipping rates and tax:** not set up. Totals at checkout may not match what you will charge.
@@ -126,3 +126,44 @@ Tell Jordan anything that looks wrong, confusing or unfinished, on a phone and o
 ### Notes for Jordan on the above [Jordan]
 - The password page behavior is written from general Shopify behavior, not tested. Confirm where it actually appears (storefront password vs. checkout) and fix that section, and send Chris the real password, before the link goes out.
 - Bogus Gateway card "1" is Shopify's documented test card for the Bogus Gateway.
+
+---
+
+## Builder data in Sanity (Phase 4)
+
+### Where everything lives [Both]
+The builder's options are all in Sanity Studio, in the **Rod Builder** folder:
+- **Blank Colors** (14): name, swatch color and the blank photo.
+- **Thread Colors** (63): name, code, swatch color and which dropdown it appears in (warm, cool or neutral).
+- **Grips** (28, 13 ice and 15 open water): material, style, finish name and photo.
+- **Builder Page**: page copy and the **Pricing Rules** tab (ice lengths, grip prices, accent price, sticker price).
+
+Each series (**Rod Series**) has its own Rod Builder tab: which blank colors it offers, its card blurb, its image and, for open water, its applications. Base prices are not in Sanity. They are on the Custom Rod Build product in Shopify.
+
+### A series has two visibility settings, and they are separate [Both]
+- **Builder Status** (Rod Builder tab): controls the custom rod builder. Live shows it and lets people build. Coming soon shows a card with no link. Hidden removes it from the builder.
+- **In-Stock Rods Status** (main fields): controls the In-Stock Rods pages only. Live shows the series card and its page. Coming soon shows a card with no link. Hidden removes the card and the series page stops working (shows "not found").
+
+Use them independently. A series can be live in the builder and hidden from in-stock, which is how Bass Casting, Musky Casting and Musky Spinning are set up right now (hidden in both until they relaunch). Ice Reaper is Coming soon in both. If In-Stock Rods Status is left empty, the series counts as live.
+
+### How Chris changes grip names, blank colors and thread colors [Chris]
+- **Grip names:** open Rod Builder, Grips, pick a grip and edit **Finish Name**. This is the name that shows in the build summary and on the order. For now the names are "Cork Split 1", "Cork Split 2" and so on. Three ice cork split grips use the old short descriptions as names ("Light and dark brown" and similar).
+- **Blank swatch colors:** edit **Swatch Hex** on the blank color. Most were picked automatically from the photo, so a swatch can look slightly off. Seafoam and Titanium Chrome have no photo yet, so their colors are guesses. Upload a photo and fix the color when you have them.
+- **Thread dropdown groups:** edit **Picker Group** on each thread color (warm, cool or neutral). These were assigned automatically from the color, so a few may look wrong, such as Concrete and Rain Cloud in cool, or Neon Green and Spring Green in warm. Change any that don't look right.
+- **Card blurbs:** every live series has a short blurb drafted from the old descriptions. Edit them on the series' Rod Builder tab. Ice Reaper's is a placeholder.
+
+### What was guessed in the migration [Both]
+- Thread groups (warm, cool, neutral): fitted to the expected 35 / 23 / 5 split from the colors alone, not from a real list.
+- Seafoam and Titanium Chrome swatch colors: no photos.
+- Which blank colors each series offers: taken from the August changelog lists, not what was live on the old site. Chris still has to confirm.
+- Hog Whip, Ice Reaper and Carbon Crush's "Pink, Green, Orange, Blue" are assumed to mean Hot Pink, Neon Green, Neon Orange and Metallic Blue.
+
+### Old site data migration [Jordan]
+- Script: `scripts/migrate-builder-data.mjs` in the CMS repo. Commands: `generate`, `patch-series`, `pricing`, `create-series`, `blurbs`, `in-stock-status`. Most take `--dry-run`. Needs Node 22.12 or newer and `SANITY_WRITE_TOKEN` in `cms/.env.local`.
+- It only ever reads the types it migrates. The old export holds customer orders and contact submissions and none of that was imported.
+- **Do not re-run `generate` plus the dataset import after Chris starts editing in Studio.** The import uses fixed IDs and `--replace`, so it overwrites any edits to those 105 documents. The other commands only set specific fields, but `patch-series` overwrites each series' builder status, blank list, applications and image, so don't re-run that either.
+- Backup taken before any write: `cj-export/backups/vx4e4v7t-production-pre-phase4-2026-11-18.tar.gz`. Restore with `sanity datasets import`.
+- The old export extracted for the migration is in `cj-export/extracted-full/`, outside both repos.
+- Carbon Crush is still `panfish-carbon` as the slug. The slug has to match the Shopify product tag and the Custom Rod Build SKU, so rename only the display name.
+- The three hidden series have `order` 101 to 103. The other series have no order value, so their card order is arbitrary until order is set on each series in Studio.
+- Grip upcharges are in Pricing Rules by water type, material and style, not on each grip. EVA straight is $0 (included).
