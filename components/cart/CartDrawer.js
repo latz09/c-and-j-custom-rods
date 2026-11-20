@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useCart } from '@/components/cart/CartProvider';
 import CartLineItem from '@/components/cart/CartLineItem';
+import CartBuildItem from '@/components/cart/CartBuildItem';
 import { formatMoney, groupCartLines } from '@/lib/cart/cartHelpers';
 
 const EASE = [0.25, 0.46, 0.45, 0.94];
@@ -69,10 +70,11 @@ export default function CartDrawer() {
 							) : (
 								<ul>
 									{groups.map((group) =>
-										// Multi-line groups are custom builds; Phase 7 renders them as one item.
-										group.lines.map((line) => (
-											<CartLineItem key={line.id} line={line} />
-										)),
+										group.buildId ? (
+											<CartBuildItem key={group.key} lines={group.lines} />
+										) : (
+											<CartLineItem key={group.key} line={group.lines[0]} />
+										),
 									)}
 								</ul>
 							)}
