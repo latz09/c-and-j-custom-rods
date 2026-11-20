@@ -28,7 +28,8 @@ Update the Status and Handoff columns at the end of every phase.
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Done (unstyled, cart call stubbed) | `handoffs/phase-06b-builder-summary.md` |
 | 6C | Builder styling: approximate first pass of landing and builder to Alyssa's screens, existing tokens and rod card patterns, basic mobile | 6B | Done (approximate, needs Jordan's browser pass) | `handoffs/phase-06c-builder-styling.md` |
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Done (tested by Jordan) | `handoffs/phase-07-checkout.md` |
-| 8 | Finish-up, cleanup, launch | 7 | Not started | |
+| 8A | Preview-ready: cart drawer styling, code cleanup, polish sweep, contact placeholder, noindex check | 7 | Done (Jordan checks before sending Chris the URL) | `handoffs/phase-08a-preview-ready.md` |
+| 8B | Launch: contact form backend, how-to guides, store transfer, tokens, DNS, launch checklist | 8A | Not started | |
 
 Phase 3 can run before or alongside 2 if that's more convenient. Everything else is in order.
 
@@ -216,7 +217,19 @@ Goal: layout and sections match the three screenshots, not pixel-perfect. Jordan
 
 **As built:** all steps done on `phase-07-checkout`. Shared cart plumbing moved to `lib/cart/cartServer.js`; `CartBuildItem.js` renders a build as one drawer item; `updateCartLinesAction` changes both lines together. The options line is skipped when add-ons are $0. `BuildTotal` shows "Total unavailable right now" (button disabled) if Shopify returns no base price. Deviations: Build Options is not physical (plan said requires shipping); `CartLineItem.js` itself is unchanged. Tax and shipping setup in Shopify still needs research (Phase 8). Details in `handoffs/phase-07-checkout.md`.
 
-## Phase 8: Finish-up + launch
+## Phase 8A: Preview-ready (done)
+
+Goal: Chris can click around a Vercel preview for a few days. Looks finished, does not break. Not launch-ready.
+
+- Cart drawer styled with the site's existing tokens and patterns (`CartDrawer.js`, `CartLineItem.js`, `CartBuildItem.js`)
+- Cleanup: deleted `test-shopify.js`, generated `public/sitemap*.xml` and `public/robots.txt` (now gitignored, `postbuild` recreates them), renamed the package to `c-and-j-custom-rods`, removed the empty `/legal/accessability` stub and the unlinked starter `/design-and-development` page with its unused badge. `HIDE_EMPTY_STOCK_MESSAGING` stays on
+- Polish sweep of every route (details and the remaining list in `handoffs/phase-08a-preview-ready.md`)
+- Contact placeholder card already reads as intentional, left as is
+- `middleware.js` noindex confirmed on `*.vercel.app` and `*.latzwebdesign.com`, not on a custom domain
+
+## Phase 8B: Finish-up + launch
+
+Everything below is 8B.
 
 **How-to guide**
 - Turn `docs/build/how-to-notes.md` into two guides: one for Jordan (technical, how the whole system fits together) and one for Chris (plain language: base prices, adding series, Ice Reaper, what not to touch). Notes are added every phase.

@@ -96,3 +96,33 @@ In Shopify admin, an order with a custom rod has a Custom Rod Build line carryin
 - Shared cart cookie and add-or-create logic is in `lib/cart/cartServer.js`.
 - If Shopify returns no base price for a series, the builder hides the total and disables Add to cart rather than showing the add-ons alone.
 - A client could still call the plain add-to-cart action with a bare Custom Rod Build variant and no specs. They would pay its base price, so it is a data problem, not a price problem, but a guard is easy if it ever matters.
+
+---
+
+## For Chris: trying the preview (Phase 8A) [Chris]
+
+Jordan will send you a link to a preview of the new site. It is a work in progress, so here is what to try and what is not done yet. Nothing you do on it is real: no card is charged and no rod is built.
+
+### What is ready to try
+- **Shop:** In-Stock Rods, Reels and Apparel. Open products, pick sizes or colors, add to cart.
+- **Cart:** the cart button in the top bar opens the cart. Change quantities, remove items, check the subtotal.
+- **Custom Build:** pick ice or open water, pick a series, then build a rod (blank, threads, grip, sticker). The total updates as you pick. Add it to the cart and it shows as one item with all its choices listed.
+- **Checkout:** press Checkout in the cart. It is a test checkout, so use the **Bogus Gateway**. Card number **1** (just the digit 1), any name, any future expiry date, any 3 digit security code. That completes a fake order. Try it with a custom rod, an in-stock rod, a reel and a shirt in the same cart.
+
+### What is not done yet (on purpose)
+- **Contact form:** the Contact page shows the email address and a "form coming soon" card. Email works, the form does not yet.
+- **Ice Reaper:** shows as Coming Soon in the builder until the price and photos are final.
+- **In-stock rods:** only a few rods are loaded so far. Open water in-stock series are empty and hidden for now.
+- **Real payments, shipping rates and tax:** not set up. Totals at checkout may not match what you will charge.
+- **Contact details:** the phone number on the Contact page is a placeholder until you send the real one. Page text and the privacy policy are still first drafts.
+- **Final domain:** this is a temporary address and is hidden from Google.
+
+### If you see a password page
+The test store is locked while it is being built, so you may land on a page asking for a password, most likely when you press Checkout. It is not part of the final site and customers will never see it. Enter the store password Jordan sends you, press Enter, and you will be taken on to checkout. The browser remembers it for a while, so you should only see it once. If it keeps coming back, tell Jordan.
+
+### What helps most
+Tell Jordan anything that looks wrong, confusing or unfinished, on a phone and on a computer. A screenshot with a note on what you expected is perfect.
+
+### Notes for Jordan on the above [Jordan]
+- The password page behavior is written from general Shopify behavior, not tested. Confirm where it actually appears (storefront password vs. checkout) and fix that section, and send Chris the real password, before the link goes out.
+- Bogus Gateway card "1" is Shopify's documented test card for the Bogus Gateway.
