@@ -30,7 +30,7 @@ export default function CartBuildItem({ lines }) {
 						alt={image.altText || series || 'Custom rod'}
 						fill
 						sizes='96px'
-						className='object-cover'
+						className='object-contain p-0.25'
 					/>
 				)}
 			</div>

@@ -28,7 +28,7 @@ export default function CartLineItem({ line }) {
 						alt={image.altText || product?.title || ''}
 						fill
 						sizes='96px'
-						className='object-cover'
+						className='object-contain p-0.25'
 					/>
 				)}
 			</div>
