@@ -167,3 +167,21 @@ Use them independently. A series can be live in the builder and hidden from in-s
 - Carbon Crush is still `panfish-carbon` as the slug. The slug has to match the Shopify product tag and the Custom Rod Build SKU, so rename only the display name.
 - The three hidden series have `order` 101 to 103. The other series have no order value, so their card order is arbitrary until order is set on each series in Studio.
 - Grip upcharges are in Pricing Rules by water type, material and style, not on each grip. EVA straight is $0 (included).
+
+---
+
+## Contact form (Phase 8B-1)
+
+### Where contact info comes from [Both]
+- **Contact page** (Studio, Contact Page, Business Info tab): email, phone, location and hours shown on /contact. Empty fields are hidden.
+- **SEO Settings** (Studio): its own phone, email and address, used for search engine data and the contact form emails. Keep it in step with the contact page.
+
+### How the form works [Jordan]
+- The form posts to pages/api/submitContactForm.js, which emails CLIENT_EMAIL through Resend (Reply-To is the person who filled it in) and saves the submission in Sanity as a Contact Form document.
+- Fields, labels and email copy are in utils/email-configuration/client-config/clientConfig.js. Adding a field there adds it to the form, the email and the Sanity write. Add it to schemaTypes/contactForm.js too or Sanity drops it.
+- The email logo is the Email Logo image on SEO Settings. With none set, the email header shows the business name as text.
+- Auto-response to the customer is off (features.autoResponseEmail). It is a paid add-on.
+- Emails send from forms@mail.latzwebdesign.com. Change it in the route if C&J gets its own sending domain.
+
+### Seeing form submissions [Chris]
+Every message is emailed to the business address and also saved in Studio under Contact Form.
