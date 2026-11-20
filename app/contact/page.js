@@ -3,7 +3,7 @@ import { fetchContent as fc } from '@/utils/cms/fetchContent';
 import { FETCH_CONTACT_PAGE_QUERY as Q } from '@/data/queries/pages/FETCH_CONTACT_PAGE_QUERY';
 import PageContainer from '@/components/animations/PageContainer';
 import ContactBusinessInfo from '@/components/sections/contact/ContactBusinessInfo';
-import ContactFormPlaceholder from '@/components/sections/contact/ContactFormPlaceholder';
+import SubmitContactForm from '@/components/sections/contact/SubmitContactForm';
 
 export async function generateMetadata() {
 	return BPM({ slug: '/contact', query: Q });
@@ -32,7 +32,7 @@ const Contact = async () => {
 						<ContactBusinessInfo data={businessInfo} />
 					</div>
 
-					<ContactFormPlaceholder />
+					<SubmitContactForm />
 				</div>
 			</section>
 		</PageContainer>

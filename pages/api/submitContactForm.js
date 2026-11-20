@@ -21,6 +21,7 @@ export default async function handler(req, res) {
 	const branding = {
 		...clientConfig.branding,
 		name: seo?.siteName ?? clientConfig.branding.name,
+		logoUrl: seo?.emailLogo ?? clientConfig.branding.logoUrl,
 		contactInfo: {
 			...clientConfig.branding.contactInfo,
 			phone: seo?.phone ?? clientConfig.branding.contactInfo.phone,

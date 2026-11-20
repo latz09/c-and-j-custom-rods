@@ -8,6 +8,7 @@ export const FETCH_SEO_SETTINGS_QUERY = `*[_type == "seoSettings"  && _id == "se
   defaultDescription,
   keywords,
   "ogImage": ogImage.asset->url,
+  "emailLogo": emailLogo.asset->url,
   twitterHandle,
   schemaType,
   phone,

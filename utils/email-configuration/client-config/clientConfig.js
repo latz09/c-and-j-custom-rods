@@ -1,19 +1,20 @@
 // /utils/email-configuration/client-config/clientConfig.js
 export const clientConfig = {
 	branding: {
-		name: 'CLIENT_NAME',
-		logoUrl:
-			'https://cdn.sanity.io/images/9yfxmlzk/production/................................', // Replace with actual logo
+		name: 'C&J Custom Rods',
+		// Fallback only. The live logo comes from seoSettings.emailLogo in Sanity.
+		// With neither set, the email header shows the business name as text.
+		logoUrl: '',
 		colors: {
-			background: '#FFFDF9', // page/section background behind the logo + body
-			surface: '#F5F0E6', // "Submission Details" box background
-			accent: '#3C084D', // top bar, eyebrow text, buttons, textarea border — customize per client
-			text: '#111827',
+			background: '#FCFCFC', // page/section background behind the logo + body
+			surface: '#F2F2F2', // "Submission Details" box background
+			accent: '#1075BD', // Fishing Blue: top bar, eyebrow text, buttons
+			text: '#161616',
 			textMuted: '#6B7280',
 		},
 		contactInfo: {
-			phone: '', // Replace with client's actual phone
-			email: process.env.CLIENT_EMAIL, // Or hardcode if needed
+			phone: '', // Live value comes from seoSettings.phone
+			email: process.env.CLIENT_EMAIL,
 		},
 	},
 
@@ -46,18 +47,27 @@ export const clientConfig = {
 			placeholder: '(123) 456-7890',
 		},
 		{
+			name: 'inquiryType',
+			label: 'Inquiry Type',
+			required: false,
+			type: 'select',
+			placeholder: 'Custom rod / In-stock rod / Reels / Other',
+			options: [
+				{ value: 'Custom rod', label: 'Custom rod' },
+				{ value: 'In-stock rod', label: 'In-stock rod' },
+				{ value: 'Reels', label: 'Reels' },
+				{ value: 'Other', label: 'Other' },
+			],
+		},
+		{
 			name: 'message',
 			label: 'How can we help?',
 			required: false,
 			type: 'textarea',
-			placeholder: 'Tell us about your project...',
+			placeholder: 'Tell us what you are looking for...',
 		},
 		// Add fields here as needed — supported types: text, email, tel, textarea, select, radio.
-		// select/radio need an `options: [{ value, label }]` array, e.g.:
-		// { name: 'projectType', label: 'Project Type', required: false, type: 'radio', options: [
-		//   { value: 'new_site', label: 'New website' },
-		//   { value: 'redesign', label: 'Redesign' },
-		// ] },
+		// select/radio need an `options: [{ value, label }]` array.
 	],
 
 	messaging: {
@@ -76,6 +86,6 @@ export const clientConfig = {
 		autoResponseUrgentNote:
 			'If you have any urgent questions, feel free to call us directly.',
 		signoffLabel: 'Best regards,',
-		autoResponseClosing: 'CLIENT_NAME', // Replace with client name, e.g. 'Jeff<br/>CLIENT_NAME'
+		autoResponseClosing: 'Chris and Joe<br/>C&J Custom Rods',
 	},
 };
