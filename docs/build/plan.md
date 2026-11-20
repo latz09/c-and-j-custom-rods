@@ -216,6 +216,9 @@ Goal: layout and sections match the three screenshots, not pixel-perfect. Jordan
 
 ## Phase 8: Finish-up + launch
 
+**How-to guide**
+- Turn `docs/build/how-to-notes.md` into two guides: one for Jordan (technical, how the whole system fits together) and one for Chris (plain language: base prices, adding series, Ice Reaper, what not to touch). Notes are added every phase.
+
 **Code cleanup**
 - Delete `test-shopify.js`, generated `public/sitemap*.xml`, rename `package.json` name from `starter-code`
 - Remove `HIDE_EMPTY_STOCK_MESSAGING` once the full catalog is in

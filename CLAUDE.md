@@ -91,6 +91,7 @@ Older reference docs stay in the claude.ai Project "C & J Custom Rods" (frozen):
 
 1. Write `docs/build/handoffs/phase-NN-short-name.md` from `_TEMPLATE.md`, including branch names and final commit hashes for both repos.
 2. Update the tracker in `docs/build/plan.md` and any plan sections the phase changed.
+2a. Add to `docs/build/how-to-notes.md` anything from the phase that needs explaining to Jordan or Chris (how it works, how to change it, what breaks if it's edited wrong). Tag each note [Jordan], [Chris] or [Both].
 3. Commit the docs on the phase branch.
 4. Tell Jordan exactly what's left for him: push the branch(es), check the Vercel preview, merge into `master` / `main`, plus any `sanity deploy` or admin steps.
 5. Give the kickoff message for the next session: `Starting Phase [N]. Follow CLAUDE.md.`
