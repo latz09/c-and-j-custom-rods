@@ -33,7 +33,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 	const price = getBuildPrice(config, catalog, rules, basePrice ?? 0);
 	const stickerMax = getStickerMax(rules);
 	const validation = validateBuild(config, catalog, rules);
-	// Phase 7: basePrice is always set once Custom Rod Build exists in Shopify.
+	// Null only if Shopify didn't return the base price. Then the total is hidden and add to cart is off.
 	const hasBasePrice = basePrice != null;
 
 	const cartButton = (
@@ -42,6 +42,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 			catalog={catalog}
 			rules={rules}
 			validation={validation}
+			hasBasePrice={hasBasePrice}
 		/>
 	);
 

@@ -13,8 +13,10 @@ import {
 	getCartAction,
 	addToCartAction,
 	updateCartLineAction,
+	updateCartLinesAction,
 	removeCartLinesAction,
 } from '@/app/actions/cart';
+import { addBuildToCart } from '@/app/actions/builder';
 
 const CartContext = createContext(null);
 
@@ -64,8 +66,20 @@ export function CartProvider({ children }) {
 		[run],
 	);
 
+	// config: the builder picks. The server validates and prices it, then adds both build lines.
+	const addBuild = useCallback(
+		(config) => run(() => addBuildToCart(config), { openOnSuccess: true }),
+		[run],
+	);
+
 	const updateLine = useCallback(
 		(lineId, quantity) => run(() => updateCartLineAction(lineId, quantity)),
+		[run],
+	);
+
+	// Same quantity on several lines at once (a custom build's two lines).
+	const updateLines = useCallback(
+		(lineIds, quantity) => run(() => updateCartLinesAction(lineIds, quantity)),
 		[run],
 	);
 
@@ -85,10 +99,12 @@ export function CartProvider({ children }) {
 			openCart,
 			closeCart,
 			addLines,
+			addBuild,
 			updateLine,
+			updateLines,
 			removeLines,
 		}),
-		[cart, isOpen, isPending, error, openCart, closeCart, addLines, updateLine, removeLines],
+		[cart, isOpen, isPending, error, openCart, closeCart, addLines, addBuild, updateLine, updateLines, removeLines],
 	);
 
 	return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

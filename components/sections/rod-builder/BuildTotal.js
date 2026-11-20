@@ -1,16 +1,12 @@
 import { formatPrice } from './formatPrice'
 
 // Shared by BuildSummary and MobileBuildBar.
-// Until Shopify has the series base price (Phase 7), only the add-ons are known. That number must
-// never read as the full price, so it is labeled as options only.
+// hasBasePrice is false only when Shopify didn't return the series base price (helper product
+// unpublished, SKU wrong). The add-ons alone must never read as the full price, so show nothing.
 const BuildTotal = ({ price, hasBasePrice, className = '' }) => {
-  // Phase 7: hasBasePrice will always be true once Custom Rod Build exists. Delete the
-  // options-only branch then and show `Total: formatPrice(price.total)` only.
   if (!hasBasePrice) {
     return (
-      <p className={`text-paragraph-lg font-[700] ${className}`}>
-        Options: +{formatPrice(price.addOnTotal)} (base price coming)
-      </p>
+      <p className={`text-paragraph-lg font-[700] ${className}`}>Total unavailable right now</p>
     )
   }
   return (
