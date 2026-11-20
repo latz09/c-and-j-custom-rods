@@ -25,7 +25,7 @@ const DesktopNavbar = ({ navLinks, logoUrl }) => {
 	return (
 		<div
 			className={`hidden h-full lg:flex items-center backdrop-blur-lg w-full ${
-				isDark ? 'bg-dark/90' : 'bg-light/[44%]'
+				isDark ? 'bg-dark' : 'bg-light/[44%]'
 			}`}
 		>
 			<div className='flex items-center w-full section-x-padding'>

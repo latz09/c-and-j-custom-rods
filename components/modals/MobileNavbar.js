@@ -81,7 +81,7 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 	return (
 		<div
 			className={`w-full lg:hidden flex items-center justify-between backdrop-blur-lg h-[10vh] ${
-				isDark ? 'bg-dark/90' : 'bg-light/[44%]'
+				isDark ? 'bg-dark' : 'bg-light/[44%]'
 			}`}
 		>
 			<div className='relative z-20 w-full section-x-padding'>
@@ -90,7 +90,7 @@ const MobileNavbar = ({ navLinks = [], logoUrl }) => {
 						className='w-[12rem]'
 						variant={isDark ? 'verticalWhite' : 'vertical'}
 					/>
-					<div className='flex items-center gap-0.5'>
+					<div className='flex items-center gap-1'>
 						<CartButton isDark={isDark} />
 						<MenuIcon
 							isNavOpen={isNavOpen}

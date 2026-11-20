@@ -38,7 +38,7 @@ export default function CartDrawer() {
 				<>
 					<motion.div
 						key='cart-overlay'
-						className='fixed inset-0 bg-dark/50 z-[1000000]'
+						className='fixed inset-0 bg-dark/70 z-[1000000]'
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{ opacity: 0 }}
@@ -51,14 +51,14 @@ export default function CartDrawer() {
 						role='dialog'
 						aria-modal='true'
 						aria-label='Shopping cart'
-						className='fixed top-0 right-0 h-full w-full max-w-[28rem] bg-white z-[1000001] flex flex-col'
+						className='fixed top-0 right-0 h-full w-[93%] max-w-[36rem] 3xl:max-w-[46rem] bg-white z-[1000001] flex flex-col'
 						initial={{ x: '100%' }}
 						animate={{ x: '0%' }}
 						exit={{ x: '100%' }}
 						transition={{ duration: 0.4, ease: EASE }}
 					>
 						<header className='flex items-center justify-between px-1.25 py-1 border-b border-accent'>
-							<h5>Your cart ({totalQuantity})</h5>
+							<h6>Your cart ({totalQuantity})</h6>
 							<button
 								type='button'
 								onClick={closeCart}
