@@ -20,8 +20,8 @@ export default function CartLineItem({ line }) {
 	const discounts = line.discountAllocations || [];
 
 	return (
-		<li className='flex gap-1 py-1 border-b border-dark/10'>
-			<div className='relative w-6 h-6 shrink-0 bg-light'>
+		<li className='flex gap-1 py-1 border-b border-accent'>
+			<div className='relative w-6 h-6 shrink-0 bg-accent/30 rounded overflow-hidden'>
 				{image?.url && (
 					<Image
 						src={image.url}
@@ -38,28 +38,28 @@ export default function CartLineItem({ line }) {
 					<Link
 						href={url}
 						onClick={closeCart}
-						className='block font-[500] hover:underline'
+						className='block font-[700] hover:text-primary transition duration-300'
 					>
 						{product?.title}
 					</Link>
 				) : (
-					<p className='font-[500]'>{product?.title}</p>
+					<p className='font-[700]'>{product?.title}</p>
 				)}
 
 				{options.length > 0 && (
-					<p className='text-paragraph'>
+					<p className='text-paragraph-sm'>
 						{options.map((o) => o.value).join(' / ')}
 					</p>
 				)}
 
 				{attributes.map((a) => (
-					<p key={a.key} className='text-paragraph'>
+					<p key={a.key} className='text-paragraph-sm'>
 						{a.key}: {a.value}
 					</p>
 				))}
 
 				{discounts.map((d, i) => (
-					<p key={i} className='text-paragraph'>
+					<p key={i} className='text-paragraph-sm'>
 						{d.title || d.code || 'Discount'}: -{formatMoney(d.discountedAmount)}
 					</p>
 				))}
@@ -71,30 +71,30 @@ export default function CartLineItem({ line }) {
 							aria-label='Decrease quantity'
 							disabled={isPending}
 							onClick={() => updateLine(line.id, quantity - 1)}
-							className='w-1.5 h-1.5 border border-dark/30 rounded disabled:opacity-50'
+							className='w-1.5 h-1.5 border border-accent bg-light hover:bg-accent/50 transition duration-300 rounded-sm disabled:opacity-50'
 						>
 							-
 						</button>
-						<span aria-live='polite'>{quantity}</span>
+						<span aria-live='polite' className='min-w-1 text-center text-paragraph-sm font-[700]'>{quantity}</span>
 						<button
 							type='button'
 							aria-label='Increase quantity'
 							disabled={isPending}
 							onClick={() => updateLine(line.id, quantity + 1)}
-							className='w-1.5 h-1.5 border border-dark/30 rounded disabled:opacity-50'
+							className='w-1.5 h-1.5 border border-accent bg-light hover:bg-accent/50 transition duration-300 rounded-sm disabled:opacity-50'
 						>
 							+
 						</button>
 					</div>
 
-					<span>{formatMoney(cost?.totalAmount)}</span>
+					<span className='font-[700]'>{formatMoney(cost?.totalAmount)}</span>
 				</div>
 
 				<button
 					type='button'
 					disabled={isPending}
 					onClick={() => removeLines([line.id])}
-					className='mt-0.5 text-paragraph underline disabled:opacity-50'
+					className='mt-0.5 text-caption underline hover:text-primary transition duration-300 disabled:opacity-50'
 				>
 					Remove
 				</button>

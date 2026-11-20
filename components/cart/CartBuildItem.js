@@ -22,8 +22,8 @@ export default function CartBuildItem({ lines }) {
 	const currencyCode = baseLine.cost?.totalAmount?.currencyCode;
 
 	return (
-		<li className='flex gap-1 py-1 border-b border-dark/10'>
-			<div className='relative w-6 h-6 shrink-0 bg-light'>
+		<li className='flex gap-1 py-1 border-b border-accent'>
+			<div className='relative w-6 h-6 shrink-0 bg-accent/30 rounded overflow-hidden'>
 				{image?.url && (
 					<Image
 						src={image.url}
@@ -36,10 +36,10 @@ export default function CartBuildItem({ lines }) {
 			</div>
 
 			<div className='flex-1 min-w-0'>
-				<p className='font-[500]'>Custom {series || 'Rod'}</p>
+				<p className='font-[700]'>Custom {series || 'Rod'}</p>
 
 				{rows.map((a) => (
-					<p key={a.key} className='text-paragraph'>
+					<p key={a.key} className='text-paragraph-sm'>
 						{a.key}: {a.value}
 					</p>
 				))}
@@ -51,30 +51,30 @@ export default function CartBuildItem({ lines }) {
 							aria-label='Decrease quantity'
 							disabled={isPending}
 							onClick={() => updateLines(lineIds, quantity - 1)}
-							className='w-1.5 h-1.5 border border-dark/30 rounded disabled:opacity-50'
+							className='w-1.5 h-1.5 border border-accent bg-light hover:bg-accent/50 transition duration-300 rounded-sm disabled:opacity-50'
 						>
 							-
 						</button>
-						<span aria-live='polite'>{quantity}</span>
+						<span aria-live='polite' className='min-w-1 text-center text-paragraph-sm font-[700]'>{quantity}</span>
 						<button
 							type='button'
 							aria-label='Increase quantity'
 							disabled={isPending}
 							onClick={() => updateLines(lineIds, quantity + 1)}
-							className='w-1.5 h-1.5 border border-dark/30 rounded disabled:opacity-50'
+							className='w-1.5 h-1.5 border border-accent bg-light hover:bg-accent/50 transition duration-300 rounded-sm disabled:opacity-50'
 						>
 							+
 						</button>
 					</div>
 
-					<span>{formatMoney({ amount: totalAmount, currencyCode })}</span>
+					<span className='font-[700]'>{formatMoney({ amount: totalAmount, currencyCode })}</span>
 				</div>
 
 				<button
 					type='button'
 					disabled={isPending}
 					onClick={() => removeLines(lineIds)}
-					className='mt-0.5 text-paragraph underline disabled:opacity-50'
+					className='mt-0.5 text-caption underline hover:text-primary transition duration-300 disabled:opacity-50'
 				>
 					Remove
 				</button>

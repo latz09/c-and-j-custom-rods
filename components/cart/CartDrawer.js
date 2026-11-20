@@ -52,18 +52,27 @@ export default function CartDrawer() {
 						exit={{ x: '100%' }}
 						transition={{ duration: 0.4, ease: EASE }}
 					>
-						<header className='flex items-center justify-between px-1.25 py-1 border-b border-dark/10'>
-							<h5>Cart ({totalQuantity})</h5>
-							<button type='button' onClick={closeCart} aria-label='Close cart'>
+						<header className='flex items-center justify-between px-1.25 py-1 border-b border-accent'>
+							<h5>Your cart ({totalQuantity})</h5>
+							<button
+								type='button'
+								onClick={closeCart}
+								aria-label='Close cart'
+								className='text-caption underline hover:text-primary transition duration-300'
+							>
 								Close
 							</button>
 						</header>
 
 						<div className='flex-1 overflow-y-auto px-1.25'>
 							{groups.length === 0 ? (
-								<div className='py-2'>
-									<p>Your cart is empty.</p>
-									<Link href='/shop/rods' onClick={closeCart} className='underline'>
+								<div className='py-2 flex flex-col items-start gap-0.75'>
+									<p className='text-paragraph'>Your cart is empty.</p>
+									<Link
+										href='/shop/rods'
+										onClick={closeCart}
+										className='py-0.75 px-1.25 bg-primary hover:bg-dark transition duration-300 text-light text-button rounded'
+									>
 										Keep shopping
 									</Link>
 								</div>
@@ -81,23 +90,25 @@ export default function CartDrawer() {
 						</div>
 
 						{groups.length > 0 && (
-							<footer className='px-1.25 py-1 border-t border-dark/10'>
+							<footer className='px-1.25 py-1 border-t border-accent bg-accent/30'>
 								{error && (
-									<p role='alert' className='mb-0.5 text-paragraph'>
+									<p role='alert' className='mb-0.5 text-paragraph-sm text-dark bg-light border border-dark/20 rounded px-0.75 py-0.5'>
 										{error}
 									</p>
 								)}
-								<div className='flex items-center justify-between mb-0.5'>
+								<div className='flex items-center justify-between mb-0.5 text-paragraph-lg font-[700]'>
 									<span>Subtotal</span>
 									<span>{formatMoney(cart?.cost?.subtotalAmount)}</span>
 								</div>
-								<p className='mb-1 text-paragraph'>
+								<p className='mb-1 text-paragraph-sm'>
 									Shipping and taxes calculated at checkout.
 								</p>
 								<a
 									href={cart?.checkoutUrl}
 									aria-disabled={isPending}
-									className='block text-center py-0.75 px-1.25 bg-primary hover:bg-dark transition duration-300 text-white rounded'
+									className={`block text-center py-0.75 px-1.25 bg-primary hover:bg-dark transition duration-300 text-light text-button rounded ${
+										isPending ? 'opacity-50 pointer-events-none' : ''
+									}`}
 								>
 									Checkout
 								</a>
