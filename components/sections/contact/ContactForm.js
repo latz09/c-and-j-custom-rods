@@ -1,5 +1,5 @@
 const baseInputClasses =
-	'w-full px-1 py-0.75 border border-dark/20 rounded bg-white text-paragraph focus:outline-none focus:border-secondary transition-all duration-300';
+	'w-full px-1.25 py-1  rounded bg-light text-paragraph-sm focus:outline-none focus:border-secondary transition-all duration-300';
 
 // One field, any type. This is the whole reason ContactForm.js used to need
 // editing for one-off fields — now a new field is a clientConfig.js entry,
@@ -102,21 +102,19 @@ const ContactForm = ({
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='w-full max-w-3xl mx-auto px-1 py-2'
+			className='p-2.5 rounded bg-accent'
 		>
-			<div className='mb-2'>
-				<h2>Get in Touch</h2>
-				<p className='text-paragraph text-dark/60'>
-					Fill out the form below and we will get back to you shortly.
-				</p>
+			<div className='mb-1.5'>
+				<h4>Fill out the form</h4>
+				
 			</div>
 
-			<div className='space-y-1.5 mb-2'>
+			<div className='space-y-1.25 mb-1.5'>
 				{fields.map((field) => (
 					<div key={field.name}>
 						<label
 							htmlFor={field.name}
-							className='text-caption font-semibold block mb-0.5'
+							className='text-caption  block mb-0.5'
 						>
 							{field.label}
 							{field.required && '*'}
@@ -129,7 +127,7 @@ const ContactForm = ({
 			<button
 				type='submit'
 				disabled={isLoading}
-				className='w-full bg-primary text-button text-white py-0.75 rounded border border-primary hover:opacity-90 active:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300'
+				className=' bg-primary text-button text-white py-0.75 px-1.25 rounded border border-primary hover:opacity-90 active:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300'
 			>
 				{isLoading ? 'Sending...' : 'Send Message'}
 			</button>
