@@ -25,7 +25,7 @@ const BuilderPage = async ({ params }) => {
   return (
     <PageContainer>
       <BuilderShell
-        catalog={series}
+        catalog={series} 
         copy={page?.builderCopy}
         rules={page?.pricingRules}
         basePrice={basePrice}

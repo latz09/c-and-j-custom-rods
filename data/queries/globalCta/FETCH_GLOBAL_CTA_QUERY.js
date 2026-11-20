@@ -11,5 +11,11 @@ export const FETCH_GLOBAL_CTA_QUERY = `*[_type == "globalCta" && _id == "globalC
     body,
     ctaCustom{label, url},
     ctaContact{label, url}
+  },
+  customCtaBanner{
+    heading,
+    body,
+    ctaInStock{label, url},
+    ctaContact{label, url}
   }
 }`
