@@ -120,7 +120,7 @@ body {
 	h5 {
 		color: #161616;
 		font-family: var(--font-heading);
-		font-size: clamp(1.3rem, 2.5vw, 1.75rem); /* guide max 1.75rem */
+		font-size: clamp(1.23rem, 2.5vw, 1.6rem); /* guide max 1.75rem */
 		font-weight: 600;
 		line-height: 1.05; /* 105% */
 		letter-spacing: -0.035rem; /* guide */

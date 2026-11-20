@@ -26,10 +26,10 @@ const CustomBuilder = async () => {
     <PageContainer>
       <div className="section-x-padding mt-1 lg:mt-2 mb-3 lg:mb-5">
         <section className="relative overflow-hidden rounded bg-gradient-to-t from-[#858585]/10 to-accent/0 px-1.25 py-2.5 lg:py-3.5 text-center">
-          <Topography variant="light" fade={true} />
-          <div className="relative z-10 mx-auto max-w-[60rem] space-y-1.25 lg:space-y-1.5">
-            <h1>{hero?.headline}</h1>
-            <p className="text-paragraph-lg">{hero?.subheadline}</p>
+          <Topography variant="light" fade={false} />
+          <div className="relative z-10 space-y-1.25 lg:space-y-1.5">
+            <h1 className="mx-auto max-w-[60rem]">{hero?.headline}</h1>
+            <p className="text-subheading">{hero?.subheadline}</p>
           </div>
         </section>
       </div>

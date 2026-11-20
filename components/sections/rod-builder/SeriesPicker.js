@@ -8,8 +8,8 @@ const DEFAULT_WATER_TYPE = 'ice'
 
 // Same active colors as the in-stock rods toggle: ice is primary, open water is secondary.
 const tabClasses = (value, active) => {
-  if (!active) return 'text-dark hover:text-primary'
-  return value === 'ice' ? 'bg-primary text-light' : 'bg-secondary text-dark'
+  if (!active) return ''
+  return value === 'ice' ? 'bg-primary' : 'bg-secondary'
 }
 
 const SeriesPicker = ({ series = [], labels }) => {
@@ -28,26 +28,35 @@ const SeriesPicker = ({ series = [], labels }) => {
       <h2>{sectionHeading || 'Category and series'}</h2>
 
       <div role="tablist" className="flex mt-1.5 lg:mt-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab.value}
-            type="button"
-            role="tab"
-            aria-selected={waterType === tab.value}
-            data-active={waterType === tab.value}
-            className={`py-1 px-1.5 rounded transition-colors duration-300 ${tabClasses(tab.value, waterType === tab.value)}`}
-            onClick={() => setWaterType(tab.value)}
-          >
-            <span className="text-button">{tab.label}</span>
-          </button>
-        ))}
+        {tabs.map((tab) => {
+          const active = waterType === tab.value
+          return (
+            <button
+              key={tab.value}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              data-active={active}
+              className={`group py-1 px-1.5 rounded transition-colors duration-300 ${tabClasses(tab.value, active)}`}
+              onClick={() => setWaterType(tab.value)}
+            >
+              <h5
+                className={`transition-colors duration-300 ${
+                  active ? 'text-light' : 'group-hover:text-primary'
+                }`}
+              >
+                {tab.label}
+              </h5>
+            </button>
+          )
+        })}
       </div>
 
       <div role="tabpanel" className="mt-1.5 lg:mt-2">
         {visible.length === 0 ? (
           <p className="text-paragraph-lg">No series available in this category yet.</p>
         ) : (
-          <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-1.5 lg:gap-1.25 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((s, index) => (
               <SeriesCard key={s._id} series={s} comingSoonLabel={comingSoonLabel} index={index} />
             ))}

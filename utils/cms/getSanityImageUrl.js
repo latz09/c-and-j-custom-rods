@@ -93,13 +93,13 @@ aboutBlurb: {
 		format: 'webp',
 		fit: 'max',
 	},
-	rodSeriesCard: {
-		width: 315,
-		height: 315,
-		quality: 90,
-		format: 'webp',
-		fit: 'max',
-	},
+rodSeriesCard: {
+	width: 356,
+	height: 356,
+	quality: 90,
+	format: 'webp',
+	fit: 'max',
+},
 	rodSeriesHero: {
 		width: 408,
 		height: 492,
