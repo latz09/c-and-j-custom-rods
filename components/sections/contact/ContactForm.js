@@ -102,7 +102,7 @@ const ContactForm = ({
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='p-2.5 rounded bg-accent'
+			className='p-1.5 lg:p-2.5 rounded bg-accent'
 		>
 			<div className='mb-1.5'>
 				<h4>Fill out the form</h4>
