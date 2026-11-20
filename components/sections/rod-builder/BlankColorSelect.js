@@ -21,7 +21,7 @@ const BlankColorSelect = ({ blanks = [], value, onChange }) => (
             value && !selected ? 'opacity-60 hover:opacity-100' : ''
           }`}
         >
-          {blank.image?.asset && (
+          {blank.image?.asset ? (
             <SanityImage
               image={blank.image}
               alt={blank.name}
@@ -29,6 +29,14 @@ const BlankColorSelect = ({ blanks = [], value, onChange }) => (
               sizes="160px"
               className="h-auto w-full rounded-sm"
             />
+          ) : (
+            blank.hex && (
+              <span
+                aria-hidden="true"
+                className="block aspect-square w-full rounded-sm border border-dark/10"
+                style={{ backgroundColor: blank.hex }}
+              />
+            )
           )}
           <span className={`text-caption ${selected ? 'font-[700]' : ''}`}>{blank.name}</span>
         </button>
