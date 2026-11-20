@@ -16,11 +16,12 @@
 | `docs/build/guide-jordan.md` | New | Technical guide: operations, what breaks if edited wrong, migration cautions, checks, deploys, known issues |
 | `docs/build/guide-chris.md` | New | Plain-language guide for Chris: prices, new series, Ice Reaper, names and colors, reading orders, do-not-touch list, still-to-confirm list, preview instructions |
 | `docs/build/cms-guide-builder-section.md` | New | Builder section for the Studio CMS guide, using the field labels as they appear in Studio |
+| `docs/build/cms-guide-general-section.md` | New | Second CMS guide section: how Studio works and everything outside the Rod Builder folder (pages, Rod Series, Testimonials, Global CTA Banners, SEO Settings, Contact Form) |
 | `docs/build/how-to-notes.md` | Changed | Header now points at the guides and says later notes must be copied into them |
 | `docs/build/plan.md` | Changed | Tracker, last-updated date, 8B-2 as built |
 
 ## Admin changes outside the code
-- Turn `cms-guide-builder-section.md` into the CMS guide PDF, host it, and set `cmsGuideUrl` in the CMS repo's `sanity.config.jsx` (line 57, currently `""`). To do (Jordan).
+- Merge `cms-guide-general-section.md` and `cms-guide-builder-section.md` into the CMS guide PDF, host it, and set `cmsGuideUrl` in the CMS repo's `sanity.config.jsx` (line 57, currently `""`). To do (Jordan).
 - Send Chris `guide-chris.md` in whatever format he prefers (copy to Google Doc or PDF). To do (Jordan).
 - Commit the CMS repo's pending schema edits and `sanity deploy`. To do (Jordan), carried from 8B-1.
 
