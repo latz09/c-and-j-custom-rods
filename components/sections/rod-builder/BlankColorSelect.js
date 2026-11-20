@@ -17,7 +17,9 @@ const BlankColorSelect = ({ blanks = [], value, onChange }) => (
           aria-checked={selected}
           data-selected={selected}
           onClick={() => onChange(blank._id)}
-          className={`flex w-7.5 flex-col items-center gap-0.5 ${tileClasses(selected)}`}
+          className={`flex w-7.5 flex-col items-center gap-0.5 ${tileClasses(selected)} ${
+            value && !selected ? 'opacity-60 hover:opacity-100' : ''
+          }`}
         >
           {blank.image?.asset && (
             <SanityImage
@@ -28,11 +30,6 @@ const BlankColorSelect = ({ blanks = [], value, onChange }) => (
               className="h-auto w-full rounded-sm"
             />
           )}
-          <span
-            aria-hidden="true"
-            className="block h-1 w-full rounded-sm border border-dark/20"
-            style={{ backgroundColor: blank.hex }}
-          />
           <span className={`text-caption ${selected ? 'font-[700]' : ''}`}>{blank.name}</span>
         </button>
       )

@@ -65,13 +65,13 @@ export const IMAGE_PRESETS = {
 		format: 'webp',
 		fit: 'max',
 	},
-aboutBlurb: {
-	width: 2400,
-	height: 974, // same 2.47:1 ratio, just higher-res source
-	quality: 90,
-	format: 'webp',
-	fit: 'max',
-},
+	aboutBlurb: {
+		width: 2400,
+		height: 974, // same 2.47:1 ratio, just higher-res source
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
 	ourStoryPhoto: {
 		width: 810,
 		height: 890, // 81:89 aspect ratio
@@ -93,13 +93,13 @@ aboutBlurb: {
 		format: 'webp',
 		fit: 'max',
 	},
-rodSeriesCard: {
-	width: 356,
-	height: 356,
-	quality: 90,
-	format: 'webp',
-	fit: 'max',
-},
+	rodSeriesCard: {
+		width: 356,
+		height: 356,
+		quality: 90,
+		format: 'webp',
+		fit: 'max',
+	},
 	rodSeriesHero: {
 		width: 408,
 		height: 492,
@@ -107,4 +107,5 @@ rodSeriesCard: {
 		format: 'webp',
 		fit: 'max',
 	},
+	catalog: { width: 880, height: 880, quality: 90 },
 };

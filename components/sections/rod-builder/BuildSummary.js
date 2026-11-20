@@ -1,12 +1,22 @@
 import { gripText, applicationText } from '@/lib/builder/buildAttributes'
 import { getStickerText } from '@/lib/builder/pricing'
 import BuildTotal from './BuildTotal'
+import { readableTextClass } from './readableText'
 
 const NOT_PICKED = 'Not selected'
 
+// Thread row value: the name on a pill filled with the thread color, same look as the dropdown.
 const threadLabel = (threads, id) => {
   const t = threads?.find((x) => x._id === id)
-  return t ? `${t.name} (${t.code})` : null
+  if (!t) return null
+  return (
+    <span
+      className={`inline-block rounded-sm border border-dark/20 px-0.75 py-0.25 ${readableTextClass(t.hex)}`}
+      style={{ backgroundColor: t.hex }}
+    >
+      {t.name} ({t.code})
+    </span>
+  )
 }
 
 // "Your Build" card. Safe on partial configs: unpicked rows read "Not selected".
@@ -36,13 +46,13 @@ const BuildSummary = ({ config, catalog, price, hasBasePrice, action }) => {
   )
 
   return (
-    <div className="mt-1 rounded bg-accent/30 p-1.25">
-      <h5 className="mb-0.75">Your Build</h5>
+    <div className="mt-1 rounded bg-accent/30 p-1.5">
+      <h6 className="mb-1">Your Build</h6>
       <dl>
         {rows.map((r) => (
           <div key={r.label} className="flex justify-between gap-1 border-b border-dark/20 py-0.5">
-            <dt className="text-paragraph">{r.label}</dt>
-            <dd className="text-paragraph font-[700] text-right">{r.value}</dd>
+            <dt className="text-paragraph-sm">{r.label}</dt>
+            <dd className="text-paragraph-sm font-[700] text-right">{r.value}</dd>
           </div>
         ))}
       </dl>

@@ -43,7 +43,7 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
   return (
     <div className="space-y-1">
       <div>
-      <p className="text-paragraph font-[700] mb-0.5">Grip material</p>
+      <p className="text-paragraph-sm font-[700] mb-0.5">Grip material</p>
       <div role="radiogroup" aria-label="Grip material" className="flex flex-wrap gap-0.5">
         {materials.map((m) => (
           <button
@@ -63,7 +63,7 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
 
       {material && (
         <div>
-        <p className="text-paragraph font-[700] mb-0.5">Grip style</p>
+        <p className="text-paragraph-sm font-[700] mb-0.5">Grip style</p>
         <div role="radiogroup" aria-label="Grip style" className="flex flex-wrap gap-0.5">
           {styles.map((s) => {
             const price = getGripPrice({ material, style: s }, waterType, rules)
@@ -95,9 +95,17 @@ const GripSelect = ({ grips = [], waterType, rules, value, onChange }) => {
               aria-checked={value === g._id}
               data-selected={value === g._id}
               onClick={() => onChange(g._id)}
-              className={`flex flex-col items-center gap-0.5 ${tileClasses(value === g._id)}`}
+              className={`flex flex-col items-center gap-0.5 ${tileClasses(value === g._id)} ${
+                value && value !== g._id ? 'opacity-60 hover:opacity-100' : ''
+              }`}
             >
-              <SanityImage image={g.image} alt={g.finishName || ''} customSize={GRIP_IMAGE_SIZE} sizes="200px" className="h-auto w-full rounded-sm" />
+              <SanityImage
+                image={g.image}
+                alt={g.finishName || ''}
+                customSize={GRIP_IMAGE_SIZE}
+                sizes="200px"
+                className='h-auto w-full rounded-sm'
+              />
               <span className={`text-caption ${value === g._id ? 'font-[700]' : ''}`}>{g.finishName}</span>
             </button>
           ))}

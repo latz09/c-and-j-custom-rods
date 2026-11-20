@@ -45,6 +45,31 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 		/>
 	);
 
+	// Guided flow: a section is full opacity once it has a pick or is the current step (the first
+	// required section still empty). Optional sections light up when the step reaches them.
+	const steps = [
+		...(isIce
+			? [
+					{ key: 'blank', done: !!config.blankId, required: true },
+					{ key: 'length', done: !!config.length, required: true },
+				]
+			: [
+					{ key: 'application', done: !!config.applicationKey, required: true },
+					{ key: 'blank', done: !!config.blankId, required: true },
+				]),
+		{ key: 'primary', done: !!config.primaryThreadId, required: true },
+		{ key: 'accent', done: !!config.accentThreadId, required: false },
+		{ key: 'grip', done: !!config.gripId, required: true },
+		{ key: 'sticker', done: !!config.stickerText?.trim(), required: false },
+	];
+	const currentIndex = steps.findIndex((s) => s.required && !s.done);
+	const isActive = (key) => {
+		const index = steps.findIndex((s) => s.key === key);
+		// Sections that aren't a step for this series (e.g. application on ice) are built but never shown.
+		if (index === -1) return true;
+		return steps[index].done || currentIndex === -1 || index <= currentIndex;
+	};
+
 	const accentNote =
 		rules?.accentPrice > 0 ? `+${formatPrice(rules.accentPrice)}` : null;
 	const stickerNote =
@@ -53,6 +78,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 	const applicationSection = (
 		<BuilderSection
 			key='application'
+			active={isActive('application')}
 			label={copy?.applicationLabel || 'Select application'}
 			priceNote={`${catalog.applications?.length ?? 0} options`}
 		>
@@ -65,7 +91,11 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 	);
 
 	const blankSection = (
-		<BuilderSection key='blank' label={copy?.blankColorLabel || 'Blank color'}>
+		<BuilderSection
+			key='blank'
+			active={isActive('blank')}
+			label={copy?.blankColorLabel || 'Blank color'}
+		>
 			<BlankColorSelect
 				blanks={catalog.blanks}
 				value={config.blankId}
@@ -75,7 +105,11 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 	);
 
 	const lengthSection = (
-		<BuilderSection key='length' label={copy?.lengthLabel || 'Rod length'}>
+		<BuilderSection
+			key='length'
+			active={isActive('length')}
+			label={copy?.lengthLabel || 'Rod length'}
+		>
 			<LengthSelect
 				lengths={rules?.iceLengths}
 				value={config.length}
@@ -85,16 +119,15 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 	);
 
 	return (
-		<div className='section-x-padding mt-1 lg:mt-2 pb-24 lg:pb-5 grid gap-1.5 lg:grid-cols-5 lg:gap-2.5 '>
-			<div className='lg:col-span-2 lg:self-start lg:sticky lg:top-1.5 border-2'>
-				<div className='relative overflow-hidden rounded border border-accent bg-gradient-to-b from-light via-accent/0 to-accent/60 p-2'>
+		<div className='section-x-padding mt-1 lg:mt-2 pb-24 lg:pb-5 grid gap-1.5 lg:grid-cols-5 lg:gap-3 '>
+			<div className='lg:col-span-2 lg:self-start lg:sticky lg:top-1.5 '>
+				<div className='relative overflow-hidden rounded border border-accent bg-gradient-to-b from-light via-accent/0 to-accent/60 p-1.5'>
 					<SanityImage
 						image={catalog.image}
 						alt={catalog.name}
-						preset='rodSeriesHero'
-						objectFit='contain'
-						className='mx-auto h-auto w-full max-w-[22rem] lg:max-w-none'
-						sizes='(min-width: 1024px) 40vw, 100vw'
+						preset='catalog'
+						className='mx-auto aspect-square h-auto w-full max-w-[22rem] lg:max-w-[27.41rem]'
+						sizes='(min-width: 1024px) 27.5rem, 22rem'
 					/>
 				</div>
 				{/* Desktop button lives in the card; mobile uses MobileBuildBar */}
@@ -120,6 +153,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 					: [applicationSection, blankSection]}
 
 				<BuilderSection
+					active={isActive('primary')}
 					label={copy?.primaryThreadLabel || 'Primary thread color'}
 				>
 					<ThreadColorSelect
@@ -131,6 +165,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 				</BuilderSection>
 
 				<BuilderSection
+					active={isActive('accent')}
 					label={copy?.accentThreadLabel || 'Accent thread color (optional)'}
 					priceNote={accentNote}
 					helperText={copy?.accentHelperText}
@@ -144,7 +179,10 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 					/>
 				</BuilderSection>
 
-				<BuilderSection label={copy?.gripLabel || 'Grip'}>
+				<BuilderSection
+					active={isActive('grip')}
+					label={copy?.gripLabel || 'Grip'}
+				>
 					<GripSelect
 						grips={catalog.grips}
 						waterType={catalog.applicationType}
@@ -155,6 +193,7 @@ const BuilderShell = ({ catalog, copy, rules, basePrice }) => {
 				</BuilderSection>
 
 				<BuilderSection
+					active={isActive('sticker')}
 					label={copy?.stickerLabel || 'Personalized sticker (optional)'}
 					priceNote={stickerNote}
 					helperText={copy?.stickerHelperText}

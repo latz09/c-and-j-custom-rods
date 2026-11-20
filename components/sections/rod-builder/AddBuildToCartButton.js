@@ -25,7 +25,7 @@ const AddBuildToCartButton = ({ config, catalog, rules, validation }) => {
       type="button"
       onClick={handleClick}
       disabled={!validation.valid}
-      className="w-full py-0.75 px-1.25 bg-primary hover:bg-dark transition duration-300 group text-light rounded inline-flex items-center justify-center gap-[0.625rem] disabled:bg-accent/80 disabled:text-primary/75 disabled:font-[700] disabled:cursor-not-allowed"
+      className="w-full py-0.75 px-1.25 bg-primary text-button hover:bg-dark transition duration-300 group text-light rounded inline-flex items-center justify-center gap-[0.625rem] disabled:bg-accent/80 disabled:text-primary/75 disabled:font-[700] disabled:cursor-not-allowed"
     >
       {validation.valid ? 'Add to cart' : validation.firstProblem}
       {validation.valid && (

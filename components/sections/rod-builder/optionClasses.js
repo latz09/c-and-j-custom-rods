@@ -3,8 +3,8 @@ const BASE = 'border rounded-sm transition-colors duration-300'
 
 export const chipClasses = (selected) =>
   `${BASE} px-0.75 py-0.5 text-caption ${
-    selected ? 'bg-accent border-dark font-[700]' : 'bg-light border-accent hover:border-dark'
+    selected ? 'bg-accent border-accent font-[700]' : 'bg-light border-accent'
   }`
 
 export const tileClasses = (selected) =>
-  `${BASE} p-0.75 ${selected ? 'bg-accent border-dark' : 'bg-light border-accent hover:border-dark'}`
+  `${BASE} p-0.75 ${selected ? 'bg-accent border-accent' : 'bg-light border-accent'}`

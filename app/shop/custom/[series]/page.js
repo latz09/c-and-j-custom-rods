@@ -4,6 +4,8 @@ import { FETCH_BUILDER_SERIES_QUERY as Q } from '@/data/queries/builder/FETCH_BU
 import { getBuilderProducts } from '@/utils/shopify/getBuilderProducts'
 import PageContainer from '@/components/animations/PageContainer'
 import BuilderShell from '@/components/sections/rod-builder/BuilderShell'
+import CallToAction from '@/components/ui/CallToActions'
+
 
 export async function generateMetadata({ params }) {
   const { series: slug } = await params
@@ -30,6 +32,8 @@ const BuilderPage = async ({ params }) => {
         rules={page?.pricingRules}
         basePrice={basePrice}
       />
+      <div className="mt-2 lg:mt-4">
+      <CallToAction variant='custom' /></div>
     </PageContainer>
   )
 }
