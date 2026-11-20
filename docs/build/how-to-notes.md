@@ -1,6 +1,6 @@
 # How-to notes (raw material for the guides)
 
-Running notes for the how-to guide on how the whole system works. Phase 8 turns these into two versions: one for Jordan (technical) and one for Chris (plain language, no code). Every phase adds to this file whenever something needs explaining to Jordan or Chris. Tag each note **[Jordan]**, **[Chris]** or **[Both]** so the split is easy later.
+Running notes for the how-to guide on how the whole system works. Phase 8B-2 turned these into `guide-jordan.md` (technical) and `guide-chris.md` (plain language, no code). **Anything added here after 8B-2 (including the tax and shipping answers from 8B-3) must also be copied into those guides.** Every phase adds to this file whenever something needs explaining to Jordan or Chris. Tag each note **[Jordan]**, **[Chris]** or **[Both]** so the split is easy later.
 
 ---
 

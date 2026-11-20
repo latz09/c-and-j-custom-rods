@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 20, 2026 (Phase 8B-1 done)
+**Last updated:** Nov 20, 2026 (Phase 8B-2 done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -30,7 +30,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 7 | Checkout wiring + Shopify helper products | 2, 6B | Done (tested by Jordan) | `handoffs/phase-07-checkout.md` |
 | 8A | Preview-ready: cart drawer styling, code cleanup, polish sweep, contact placeholder, noindex check | 7 | Done (Jordan checks before sending Chris the URL) | `handoffs/phase-08a-preview-ready.md` |
 | 8B-1 | Contact form backend | 8A | Done (tested by Jordan) | `handoffs/phase-08b-1-contact-form.md` |
-| 8B-2 | Docs: architecture doc, Jordan and Chris guides, CMS guide | 8B-1 | Not started | |
+| 8B-2 | Docs: architecture doc, Jordan and Chris guides, CMS guide | 8B-1 | Done (markdown; CMS guide PDF and `cmsGuideUrl` are Jordan's) | `handoffs/phase-08b-2-docs.md` |
 | 8B-3 | Launch: Shopify tax and shipping, reel toggles, launch checklist, analytics events | 8B-2 | Not started | |
 
 Phase 3 can run before or alongside 2 if that's more convenient. Everything else is in order.
@@ -233,7 +233,9 @@ Goal: Chris can click around a Vercel preview for a few days. Looks finished, do
 
 Split into three sessions: **8B-1** contact form (done; as built the route stayed in `pages/api/submitContactForm.js` and the email logo is `seoSettings.emailLogo`), **8B-2** docs and guides, **8B-3** Shopify research, launch checklist and analytics. `HIDE_EMPTY_STOCK_MESSAGING` stays on until the rod catalog is loaded.
 
-**How-to guide**
+**8B-2 as built (done):** `architecture.md`, `guide-jordan.md`, `guide-chris.md` and `cms-guide-builder-section.md` written in `docs/build/`. The CMS repo had no existing CMS guide to add a section to, so the builder section stands alone for Jordan to merge into the PDF. `cmsGuideUrl` is empty in the CMS repo's `sanity.config.jsx`; left empty until the PDF has a home. Details in `handoffs/phase-08b-2-docs.md`.
+
+**How-to guide (done in 8B-2)**
 - Turn `docs/build/how-to-notes.md` into two guides: one for Jordan (technical, how the whole system fits together) and one for Chris (plain language: base prices, adding series, Ice Reaper, what not to touch). Notes are added every phase.
 
 **Code cleanup**
