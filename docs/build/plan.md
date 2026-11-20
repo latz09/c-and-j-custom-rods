@@ -1,6 +1,6 @@
 # C&J Custom Rods: Finish Plan + Rod Builder Build
 
-**Last updated:** Nov 19, 2026 (Phase 6C done)
+**Last updated:** Nov 20, 2026 (Phase 7 done)
 **How this runs:** one phase per Claude Code session in VS Code, following `CLAUDE.md` at the repo root: read the docs, give the rundown, work on a phase branch, write a handoff to `docs/build/handoffs/`, update the tracker below.
 
 **Decisions locked Nov 17:**
@@ -27,7 +27,7 @@ Update the Status and Handoff columns at the end of every phase.
 | 6A | Builder UI: landing/picker, builder shell, option sections | 5 | Done (unstyled, Jordan applies classnames) | `handoffs/phase-06a-builder-ui.md` |
 | 6B | Builder UI: summary card, mobile bar, add-to-cart button | 6A | Done (unstyled, cart call stubbed) | `handoffs/phase-06b-builder-summary.md` |
 | 6C | Builder styling: approximate first pass of landing and builder to Alyssa's screens, existing tokens and rod card patterns, basic mobile | 6B | Done (approximate, needs Jordan's browser pass) | `handoffs/phase-06c-builder-styling.md` |
-| 7 | Checkout wiring + Shopify helper products | 2, 6B | Not started | |
+| 7 | Checkout wiring + Shopify helper products | 2, 6B | Done (tested by Jordan) | `handoffs/phase-07-checkout.md` |
 | 8 | Finish-up, cleanup, launch | 7 | Not started | |
 
 Phase 3 can run before or alongside 2 if that's more convenient. Everything else is in order.
@@ -214,6 +214,8 @@ Goal: layout and sections match the three screenshots, not pixel-perfect. Jordan
 
 **Done when:** a custom build and in-stock products check out together and the order in Shopify shows every spec.
 
+**As built:** all steps done on `phase-07-checkout`. Shared cart plumbing moved to `lib/cart/cartServer.js`; `CartBuildItem.js` renders a build as one drawer item; `updateCartLinesAction` changes both lines together. The options line is skipped when add-ons are $0. `BuildTotal` shows "Total unavailable right now" (button disabled) if Shopify returns no base price. Deviations: Build Options is not physical (plan said requires shipping); `CartLineItem.js` itself is unchanged. Tax and shipping setup in Shopify still needs research (Phase 8). Details in `handoffs/phase-07-checkout.md`.
+
 ## Phase 8: Finish-up + launch
 
 **How-to guide**
@@ -236,6 +238,7 @@ Goal: layout and sections match the three screenshots, not pixel-perfect. Jordan
 - Rest of rod catalog loaded. The old CMS has 57 in-stock listings (46 ice, 11 open water) with descriptions and 178 photos in the export, a possible source if Chris wants them carried over
 - Confirm reel metafield Storefront toggles (Bearings, Gear Ratio, Weight, Max Drag)
 - Shipping: Shippo vs. Shopify native comparison still owed
+- Research and set up tax collection and shipping rates in Shopify (custom builds, in-stock rods, mixed carts). Shipping on a build comes from the Custom Rod Build line only. Record answers in `how-to-notes.md`
 - Contact Page business info: phone, location, hours once Chris sends them
 
 **Waiting on client**

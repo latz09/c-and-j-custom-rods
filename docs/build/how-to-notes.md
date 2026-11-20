@@ -65,3 +65,34 @@ Never put either product in a collection, and never publish them to the Online S
 - The code reads the products by handle (`custom-rod-build`, `build-options`) in `utils/shopify/getBuilderProducts.js`. Base variants are matched by SKU, option variants by price.
 - Checked against live Shopify on Nov 20, 2026: both products came back, 7 base variants, 18 option variants, all available. Base prices at that time: Hole Hog $119, Hog Whip $119, Carbon Crush $124.99, Eyece Commander $129.99, Bass Spinning $229.99, Walleye Spinning $234.99, Panfish Spinning $219.99.
 - Deviation from the plan: Build Options is not physical (plan said requires shipping on both). Shipping is charged on the base line.
+
+---
+
+## Research still needed: tax, shipping and the rest of the Shopify side [Both]
+Jordan and Chris need to research and set up how Shopify handles these for C&J before launch. Not done yet, and the guide should cover each once answered:
+- **Tax:** how to turn on and configure tax collection (which states or regions, tax rates, what counts as taxable). Tax is on for the helper products, but the store-level tax settings are not set up for real selling yet.
+- **Shipping:** how shipping rates get calculated at checkout (flat rate, weight based, carrier calculated, free over a threshold). Custom rods and in-stock rods likely need different rules. The Shippo vs. Shopify native comparison is still owed (also in Phase 8).
+- **Build Options and shipping:** Build Options is not physical, so shipping must come entirely from the Custom Rod Build line. Check shipping rates look right for a build, and decide the package weight on each Custom Rod Build variant.
+- **Mixed carts:** how a cart with a custom rod plus a reel or apparel is taxed and shipped.
+- **Payments and going live:** the store transfer, payment provider, and moving off Bogus Gateway.
+- **Order handling:** how Chris reads the build specs on an order, and how orders get fulfilled and tracked.
+- **Lead time and returns:** what to tell customers about build time and returns on custom rods (open questions 10 and 11).
+
+Phase 8 turns the answers into steps in the guides.
+
+---
+
+## How a custom build looks in the cart and on the order (Phase 7)
+
+### What the customer sees [Chris]
+In the cart a custom rod shows as one item, "Custom <series>", with its specs listed (length or application, blank color, thread colors, grip, sticker text) and one price. The quantity buttons and Remove change the whole build. Behind the scenes it is two Shopify lines (the base price and the add-ons), but the customer never sees them separately.
+
+### What Chris sees on an order [Chris]
+In Shopify admin, an order with a custom rod has a Custom Rod Build line carrying the base price and a Build Options line carrying the add-ons total (no Build Options line if there were no add-ons). Both lines list the same specs under their properties: Series, Length or Application, Blank Color, Primary Thread, Accent Thread, Grip, Sticker Text. Use either line to build the rod. The Build Options line is only there for the money.
+
+### How it works [Jordan]
+- `addBuildToCart` in `app/actions/builder.js` is a server action. The browser sends only its picks. The server fetches the Sanity catalog, the pricing rules and the Shopify helper products fresh, validates, prices, then adds both lines with the same `_buildId` (a random id, hidden because it starts with an underscore).
+- The cart drawer groups lines by `_buildId` (`groupCartLines`) and renders `CartBuildItem` for each group. Quantity and remove go through `updateCartLinesAction`, so both lines always move together.
+- Shared cart cookie and add-or-create logic is in `lib/cart/cartServer.js`.
+- If Shopify returns no base price for a series, the builder hides the total and disables Add to cart rather than showing the add-ons alone.
+- A client could still call the plain add-to-cart action with a bare Custom Rod Build variant and no specs. They would pay its base price, so it is a data problem, not a price problem, but a guard is easy if it ever matters.
